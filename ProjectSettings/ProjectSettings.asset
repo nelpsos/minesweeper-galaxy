@@ -769,11 +769,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 3
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 8f9d5b60-299d-4417-a207-afef1401fa82
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: minesweeper-galaxy
+  organizationId: jpl891221
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
   playerDataPath: 
