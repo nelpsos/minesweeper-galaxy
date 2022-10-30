@@ -14,7 +14,11 @@ public class DataManager
 
     public void Init()
     {
+<<<<<<< Updated upstream:Assets/Scripts/Managers/DataManager.cs
        // StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
+=======
+        //StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
+>>>>>>> Stashed changes:Assets/Scripts/Managers/Core/DataManager.cs
     }
 
  //   Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

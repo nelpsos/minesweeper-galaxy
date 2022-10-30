@@ -35,4 +35,14 @@ public class Define
     {
         QuarterView,
     }
+
+    public enum CellState
+    { 
+        WALL,       //벽
+        BLOCK,      //
+        CLOSE,      //닫힘
+        FLAG,       //깃발 상태
+        OPEN,       //열림 상태
+    }
+
 }
