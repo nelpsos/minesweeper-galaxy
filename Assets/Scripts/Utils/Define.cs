@@ -38,11 +38,19 @@ public class Define
 
     public enum CellState
     { 
-        WALL,       //벽
         BLOCK,      //
         CLOSE,      //닫힘
         FLAG,       //깃발 상태
         OPEN,       //열림 상태
+        ONE,        //주변 지뢰 개수
+        TWO,
+        THREE,
+        FOUR,
+        FIVE,
+        SIX,
+        SEVEN,
+        EIGHT,
+        NINE,
     }
 
 }

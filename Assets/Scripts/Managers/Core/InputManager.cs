@@ -9,8 +9,6 @@ public class InputManager
     public Action KeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
 
-    bool _pressed = false;
-
     public void OnUpdate()
     {
     //    if (EventSystem.current.IsPointerOverGameObject())
