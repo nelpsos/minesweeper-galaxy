@@ -5,7 +5,7 @@ using UnityEngine;
 public class CellController : MonoBehaviour
 {
 
-    Define.CellState CellState
+    public Define.CellState CellState
     {
         get
         {

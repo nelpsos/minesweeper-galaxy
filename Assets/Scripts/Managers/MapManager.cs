@@ -36,6 +36,30 @@ public class MapManager : MonoBehaviour
                     gameObject.transform.position = new Vector3(i, j, 5);
                 }
             }
-        }        
-    }
+        }
+
+        //Setup Mine
+        while (maxMine > 0)
+        {
+            int mineRow = Random.Range(0, row);
+            int mineCol = Random.Range(0, col);
+
+            CellController cell = cellController[mineRow, mineCol];
+            cell.CellState = Define.CellState.MINE;
+            maxMine--;
+        }
+
+
+        //ºí·Ï ¼¿ ¼³Á¤
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+               if(cellController[i, j].CellState == Define.CellState.MINE)
+                {
+
+                }
+            }
+        }
+
 }

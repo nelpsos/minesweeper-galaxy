@@ -24,7 +24,7 @@ public class UI_ZoomUp : UI_Button
     {
         base.Init();
 
-//        GetButton((int)UI_Button.Buttons.ZoomUp).gameObject.BindEvent(OnButtonClicked);
+        
     }
 
     public void OnButtonClicked(PointerEventData data)

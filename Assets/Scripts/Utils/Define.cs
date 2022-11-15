@@ -40,6 +40,7 @@ public class Define
     { 
         BLOCK,      //
         CLOSE,      //닫힘
+        MINE,
         FLAG,       //깃발 상태
         OPEN,       //열림 상태
         ONE,        //주변 지뢰 개수
