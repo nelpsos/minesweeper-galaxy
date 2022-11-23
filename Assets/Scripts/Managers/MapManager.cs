@@ -27,6 +27,8 @@ public class MapManager : MonoBehaviour
         _row = row;
         _col = col;
 
+        //텍스트 설정
+
         //프리팹 생성
         for (int i = 0; i < row; i++)
         {
@@ -52,7 +54,6 @@ public class MapManager : MonoBehaviour
             cell.SetCellState(Define.CellState.MINE);
             maxMine--;
         }
-
 
         //블록 셀 설정
         for (int i = 0; i < row; i++)
@@ -83,6 +84,7 @@ public class MapManager : MonoBehaviour
             }
         }
 
+        Managers.UI.ShowSceneUI<UI_Scene>("UI_Scene");
+        Managers.UI.ShowPopupUI<UI_Button>("UI_Button");
     }
-
 }
