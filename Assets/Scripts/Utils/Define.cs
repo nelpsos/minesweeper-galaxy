@@ -29,6 +29,8 @@ public class Define
     {
         Press,
         Click,
+        RPress,
+        RClick,
     }
 
     public enum CameraMode
@@ -37,12 +39,8 @@ public class Define
     }
 
     public enum CellState
-    { 
-        BLOCK,      //
-        CLOSE,      //닫힘
-        MINE,
-        FLAG,       //깃발 상태
-        OPEN,       //열림 상태
+    {
+        CLOSE,
         ONE,        //주변 지뢰 개수
         TWO,
         THREE,
@@ -52,6 +50,12 @@ public class Define
         SEVEN,
         EIGHT,
         NINE,
+        FLAG,       //깃발 상태
+        OPEN,       //열림 상태   
+        MINE,       //지뢰
     }
+
+    public static int[] xIndex = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
+    public static int[] yIndex = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
 
 }

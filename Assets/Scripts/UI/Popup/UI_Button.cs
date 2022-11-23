@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,17 +16,6 @@ public class UI_Button : UI_Popup
         CameraZoomDown
     }
 
-    enum Texts
-    {
-        PointText,
-        ScoreText,
-    }
-
-    //public enum Images
-    //{
-    //    ItemIcon,
-    //}
-
     private void Start()
     {
         Init();
@@ -36,14 +26,14 @@ public class UI_Button : UI_Popup
         base.Init();
 
 		Bind<Button>(typeof(Buttons));
-        //Bind<Text>(typeof(Texts));
-        //Bind<Image>(typeof(Images));
 
         GetButton((int)Buttons.GameStart).gameObject.BindEvent(OnButtonGameStart);
         GetButton((int)Buttons.CameraZoomUp).gameObject.BindEvent(OnButtonCameraZoomUp);
         GetButton((int)Buttons.CameraZoomDown).gameObject.BindEvent(OnButtonCameraZoomDown);
 
-        //GetButton((int)Buttons.GameStart).gameObject.BindEvent(OnButtonClicked);
+        
+
+        //Bind<Image>(typeof(Images));
 
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
@@ -52,6 +42,9 @@ public class UI_Button : UI_Popup
     public void OnButtonGameStart(PointerEventData data)
     {
         Debug.Log("Test Click");
+
+        UI_Scene uiScene = Managers.UI.GetUIScene();
+        uiScene.SetMineText("1");
     }
 
     public void OnButtonCameraZoomUp(PointerEventData data)

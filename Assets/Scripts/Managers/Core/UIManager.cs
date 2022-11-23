@@ -113,4 +113,9 @@ public class UIManager
         CloseAllPopupUI();
         _sceneUI = null;
     }
+
+    public UI_Scene GetUIScene()
+    {
+        return _sceneUI;
+    }
 }
