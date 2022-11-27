@@ -41,10 +41,7 @@ public class UI_Button : UI_Popup
 
     public void OnButtonGameStart(PointerEventData data)
     {
-        Debug.Log("Test Click");
-
-        UI_Scene uiScene = Managers.UI.GetUIScene();
-        uiScene.SetMineText("1");
+        Managers.GameManager.GameStart(5,5,5);
     }
 
     public void OnButtonCameraZoomUp(PointerEventData data)
