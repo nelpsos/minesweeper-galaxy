@@ -33,14 +33,15 @@ public class Define
         RClick,
     }
 
-    public enum CameraMode
-    {
-        QuarterView,
-    }
-
     public enum CellState
     {
-        CLOSE,
+        HIDDEN,
+        OPEN,       //열림 상태   
+    }
+
+    public enum MineCount
+    {
+        NONE,
         ONE,        //주변 지뢰 개수
         TWO,
         THREE,
@@ -49,11 +50,17 @@ public class Define
         SIX,
         SEVEN,
         EIGHT,
-        NINE,
-        FLAG,       //깃발 상태
-        OPEN,       //열림 상태   
-        MINE,       //지뢰
     }
+
+    public enum GameMode
+    {
+        Ready,
+        Play,
+        Pause,
+        GameOver,
+    }
+
+   
 
     public static int[] xIndex = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
     public static int[] yIndex = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
