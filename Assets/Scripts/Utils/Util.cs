@@ -50,36 +50,4 @@ public class Util
 
         return null;
     }
-
-    public static Color GetCellStateColor(Define.CellState state)
-    {
-        switch (state)
-        {
-            case Define.CellState.ONE:
-                return Color.red;
-            case Define.CellState.TWO:
-                return Color.blue;
-            case Define.CellState.THREE:
-                return Color.green;
-            case Define.CellState.FOUR:
-                return Color.cyan;
-            case Define.CellState.FIVE:
-                return Color.magenta;
-            case Define.CellState.SIX:
-            case Define.CellState.SEVEN:
-            case Define.CellState.EIGHT:
-            case Define.CellState.NINE:
-                return Color.yellow;
-            case Define.CellState.FLAG:
-                break;
-            case Define.CellState.OPEN:
-                return Color.gray;
-            case Define.CellState.CLOSE:
-                return Color.white;
-            case Define.CellState.MINE:
-                return Color.black;
-        }
-
-        return Color.clear ;
-    }
-}
+ }
