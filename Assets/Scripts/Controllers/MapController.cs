@@ -26,19 +26,16 @@ public class MapController : MonoBehaviour
         _row = row;
         _col = col;
 
-        //텍스트 설정
-
         //프리팹 생성
-        for (int i = 0; i < row; i++)
+        for (int y = 0; y < row; y++)
         {
-            for (int j = 0; j < col; j++)
+            for (int x = 0; x < col; x++)
             {
                 GameObject gameObject = Managers.Resource.Instantiate("Cell", transform);
                 if (gameObject != null)
                 {
-                    _cellController[i, j] = gameObject.GetComponent<CellController>();
-                    gameObject.name = "Cell" + "_" + i.ToString() + "_" + j.ToString();
-                    gameObject.transform.position = new Vector3(i, j, 0);
+                    _cellController[y, x] = gameObject.GetComponent<CellController>();
+                    _cellController[y, x].Init(y, x, this);
                 }
             }
         }
@@ -80,6 +77,40 @@ public class MapController : MonoBehaviour
                     }
                    _cellController[i, j].AdjacentMineCount = adjacentMineCount;
                 }
+            }
+        }
+    }
+
+
+    public void OpenCell(int x, int y)
+    {
+        _cellController[x, y].OpenCell();
+
+        //OpenAdjacentCell(x, y);
+    }
+
+    public void OpenAdjacentCell(int pivotX, int pivotY)
+    {
+        for (int i = 0; i < Define.xIndex.Length; ++i)
+        {
+            int x = pivotX + Define.xIndex[i];
+            int y = pivotY + Define.yIndex[i];
+
+            if (x < 0 || x >= _row)
+                continue;
+
+            if (y < 0 || y >= _col)
+                continue;
+
+
+            //마인인 아닌경우 오픈
+            if (_cellController[x, y].HaveMine == false)
+            {
+                _cellController[x, y].OpenCell();
+
+                //주변 지뢰가 없는경우 재귀 탐색
+                if(_cellController[x, y].AdjacentMineCount == 0)
+                    OpenAdjacentCell(x, y);
             }
         }
     }

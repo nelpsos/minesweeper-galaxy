@@ -9,6 +9,7 @@ public class UI_Scene : UI_Base
     {
         MineText,
         TimeText,
+        LifeText,
     }
 
     private void Start()
@@ -24,8 +25,18 @@ public class UI_Scene : UI_Base
 	}
 
 
-    public void SetMineText(string text)
+    public void SetMineText(int mineCount)
     {
-        GetText((int)TextMeshProUGUIs.MineText).text = text;
+        GetText((int)TextMeshProUGUIs.MineText).text = $"Mine : {mineCount}";
+    }
+
+    public void SetLifeText(int life)
+    {
+        GetText((int)TextMeshProUGUIs.LifeText).text = $"Life : {life}";
+    }
+
+    public void SetTimeText(int time)
+    {
+        GetText((int)TextMeshProUGUIs.TimeText).text = $"Time : {time}";
     }
 }
