@@ -12,6 +12,11 @@ public class CellController : MonoBehaviour
     public bool HaveMine { get; set; }
     public bool IsFlag { get; set; }
 
+    private int _x;
+    private int _y;
+
+    private MapController _mapController;
+
     private SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
@@ -20,18 +25,32 @@ public class CellController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    public void Init(int x, int y, MapController mapController)
+    {
+        _x = x;
+        _y = y;
 
-    public void OnMouseLClick()
+        _mapController = mapController;
+
+        gameObject.name = "Cell" + "_" + y.ToString() + "_" + x.ToString();
+        gameObject.transform.position = new Vector3(y, x, 0);
+    }
+
+    public void OpenCell()
     {
         //오픈 상태로 변경
         CellState = Define.CellState.OPEN;
 
-        //지뢰를 가지고 있는 셀이라면
+        //색상 변경
+        _spriteRenderer.color = Color.black;
+        
         if (HaveMine)
         {
-            //게임 오버
+            //마인 셀인 경우
             UnityEngine.Transform childTransform = this.transform.Find("MINE");
             childTransform.gameObject.SetActive(true);
+
+            Managers.GameManager.OnReduceLife(1);
         }
         else
         {
@@ -49,14 +68,9 @@ public class CellController : MonoBehaviour
                 childTransform.gameObject.SetActive(true);
             }
         }
-
-        if (CellState == Define.CellState.OPEN)
-            _spriteRenderer.color = Color.black;
-        else
-            _spriteRenderer.color = Color.white;
     }
 
-    public void OnMouseRClick()
+    public void SetFlag()
     {
         IsFlag = !IsFlag;
 
@@ -65,5 +79,17 @@ public class CellController : MonoBehaviour
             childTransform.gameObject.SetActive(true);
         else
             childTransform.gameObject.SetActive(false);
+
+        Managers.GameManager.OnSetFlag(IsFlag);
+    }
+
+    public void OnMouseLClick()
+    {
+        _mapController.OpenCell(_x,_y);
+    }
+
+    public void OnMouseRClick()
+    {
+        SetFlag();
     }
 }
