@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,16 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Dictionary<int, Stat> StatDict { get; private set; } = new Dictionary<int, Stat>();
+    public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
 
     public void Init()
     {
-        //StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
+        StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
     }
 
- //   Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
- //   {
-	//	TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
- //       return JsonUtility.FromJson<Loader>(textAsset.text);
-	//}
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
+        return JsonUtility.FromJson<Loader>(textAsset.text);
+    }
 }

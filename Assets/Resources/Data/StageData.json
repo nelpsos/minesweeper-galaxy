@@ -1,0 +1,25 @@
+{
+  "stages": [
+    {
+      "level": 1,
+      "monster": 0,
+      "col": 9,
+      "row": 9,
+      "mine": 10
+    },
+    {
+      "level": 2,
+      "monster": 0,
+      "col": 12,
+      "row": 12,
+      "mine": 20
+    },
+    {
+      "level": 3,
+      "monster": 1,
+      "col": 14,
+      "row": 14,
+      "mine": 30
+    }
+  ]
+}

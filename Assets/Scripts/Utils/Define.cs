@@ -57,6 +57,7 @@ public class Define
         Ready,
         Play,
         Pause,
+        Clear,
         GameOver,
     }
 

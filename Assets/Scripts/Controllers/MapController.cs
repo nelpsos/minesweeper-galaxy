@@ -11,6 +11,8 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Managers.GameManager.GameModeAction -= OnMapReceiveGameMode;
+        Managers.GameManager.GameModeAction += OnMapReceiveGameMode;
     }
 
     // Update is called once per frame
@@ -26,7 +28,6 @@ public class MapController : MonoBehaviour
         _row = row;
         _col = col;
 
-        //텍스트 설정
 
         //프리팹 생성
         for (int i = 0; i < row; i++)
@@ -38,7 +39,7 @@ public class MapController : MonoBehaviour
                 {
                     _cellController[i, j] = gameObject.GetComponent<CellController>();
                     gameObject.name = "Cell" + "_" + i.ToString() + "_" + j.ToString();
-                    gameObject.transform.position = new Vector3(i, j, 0);
+                    gameObject.transform.position = new Vector3(i - row / 2, j - col / 2, 0);
                 }
             }
         }
@@ -81,6 +82,27 @@ public class MapController : MonoBehaviour
                    _cellController[i, j].AdjacentMineCount = adjacentMineCount;
                 }
             }
+        }
+    }
+
+    public void OnMapReceiveGameMode(Define.GameMode gameMode)
+    {
+        switch (gameMode)
+        {
+            case Define.GameMode.Ready:
+                {
+                    Stage stageData = Managers.GameManager.GetStageData();
+                    Init(stageData.mine, stageData.row, stageData.col);
+                }
+                break;
+            case Define.GameMode.Play:
+                break;
+            case Define.GameMode.Pause:
+                break;
+            case Define.GameMode.GameOver:
+                break;
+            default:
+                break;
         }
     }
 }
