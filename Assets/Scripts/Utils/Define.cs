@@ -41,7 +41,7 @@ public class Define
 
     public enum MineCount
     {
-        NONE,
+        ZERO,
         ONE,        //주변 지뢰 개수
         TWO,
         THREE,
@@ -59,6 +59,7 @@ public class Define
         Pause,
         Clear,
         GameOver,
+        Clear,
     }
 
    

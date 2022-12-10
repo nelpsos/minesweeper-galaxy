@@ -9,13 +9,13 @@ public class GameManager
 {
 
     [SerializeField]
-    int _mineCount = 0;  //³²Àº Áö·Ú °³¼ö
+    int _mineCount = 0;  //ë‚¨ì€ ì§€ë¢° ê°œìˆ˜
 
     [SerializeField]
-    float _remainTime = 0;    //³²Àº ½Ã°£
+    float _remainTime = 0;    //ë‚¨ì€ ì‹œê°„
 
     [SerializeField]
-    int _life = 3;    //³²Àº ½Ã°£
+    int _life = 3;    //ë‚¨ì€ ì‹œê°„
 
     [SerializeField]
     int _level = 0;
@@ -32,7 +32,7 @@ public class GameManager
         get { return _gameMode; }
         set { _gameMode = value; }
     }
-    
+
     public Action<Define.GameMode> GameModeAction = null;
 
     public void Init()
@@ -51,6 +51,7 @@ public class GameManager
         _level++;
     }
 
+
     private void InitGame()
     {
         _stageData = Managers.Data.StageDict[_level];
@@ -64,8 +65,8 @@ public class GameManager
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
-    { 
-        _gameMode = gameMode;
+    {
+        GameMode = gameMode;
 
         switch (gameMode)
         {
@@ -93,12 +94,12 @@ public class GameManager
         }
 
         if(GameModeAction != null) 
-            GameModeAction.Invoke(_gameMode);
+            GameModeAction.Invoke(GameMode);
     }
 
     public void OnUpdate()
     {
-        //½Ã°£ Ã¼Å©
+        //ì‹œê°„ ì²´í¬
         _remainTime -= Time.deltaTime;
         _uiScene.SetTimeText(_remainTime);
 
@@ -148,5 +149,31 @@ public class GameManager
     public Stage GetStageData()
     {
         return _stageData;
+    }
+
+    public void OnReduceLife(int reduceValue)
+    {
+        _life -= reduceValue;
+
+        if(_life <= 0 )
+        {
+            _life = 0;
+            ChangeGameMode(Define.GameMode.GameOver);
+        }
+    }
+
+    public void OnSetFlag(bool flag)
+    {
+        if (flag)
+            _mineCount--;
+        else
+            _mineCount++;
+        
+        if(_mineCount <= 0)
+        {
+            ChangeGameMode(Define.GameMode.Clear);
+        }
+
+        Managers.UI.GetUIScene().SetMineText(_mineCount);
     }
 }

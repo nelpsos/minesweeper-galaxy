@@ -12,6 +12,11 @@ public class CellController : MonoBehaviour
     public bool HaveMine { get; set; }
     public bool IsFlag { get; set; }
 
+    private int _x;
+    private int _y;
+
+    private MapController _mapController;
+
     private SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
@@ -19,30 +24,34 @@ public class CellController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
     public void OnMouseLClick()
     {
-        //¿ÀÇÂ »óÅÂ·Î º¯°æ
+        //ì˜¤í”ˆ ìƒíƒœë¡œ ë³€ê²½
         CellState = Define.CellState.OPEN;
 
-        //Áö·Ú¸¦ °¡Áö°í ÀÖ´Â ¼¿ÀÌ¶ó¸é
+        //ìƒ‰ìƒ ë³€ê²½
+        _spriteRenderer.color = Color.black;
+        
         if (HaveMine)
         {
-            //°ÔÀÓ ¿À¹ö
+            //ë§ˆì¸ ì…€ì¸ ê²½ìš°
             UnityEngine.Transform childTransform = this.transform.Find("MINE");
             childTransform.gameObject.SetActive(true);
 
             Managers.GameManager.OnClickMine();
+
         }
         else
         {
-            //Á¤»óÀû ¿ÀÇÂ
+            //ì •ìƒì  ì˜¤í”ˆ
             string[] names = Enum.GetNames(typeof(Define.MineCount));
 
-            //¸ğµç ÀÚ½Ä³ëµå ºñÈ°¼ºÈ­
+            //ëª¨ë“  ìì‹ë…¸ë“œ ë¹„í™œì„±í™”
             foreach (UnityEngine.Transform child in this.transform)
                 child.gameObject.SetActive(false);
 
-            //ÁÖº¯¿¡ ¸¶ÀÎÀÌ ÀÖ´Â°æ¿ì¿¡¸¸ 
+            //ì£¼ë³€ì— ë§ˆì¸ì´ ìˆëŠ”ê²½ìš°ì—ë§Œ 
             if (AdjacentMineCount > 0)
             {
                 UnityEngine.Transform childTransform = this.transform.Find(names[AdjacentMineCount]);
@@ -54,13 +63,11 @@ public class CellController : MonoBehaviour
             _spriteRenderer.color = Color.black;
         else
             _spriteRenderer.color = Color.white;
-
-
     }
 
-    public void OnMouseRClick()
+    public void SetFlag()
     {
-        // Flag ¼³Á¤À» ¾ÈÇÑ »óÅÂ
+        // Flag ì„¤ì •ì„ ì•ˆí•œ ìƒíƒœ
         if(IsFlag == false)
         {
             IsFlag = true;
@@ -72,7 +79,7 @@ public class CellController : MonoBehaviour
         }
         else
         {
-            // Flag ÇØÁ¦
+            // Flag í•´ì œ
 
             if (HaveMine)
             {
@@ -80,9 +87,8 @@ public class CellController : MonoBehaviour
             }
         }
 
-        //¾ÆÀÌÄÚ¤¤ ¼³Á¤
+        //ì•„ì´ì½”ã„´ ì„¤ì •
         UnityEngine.Transform childTransform = this.transform.Find("FLAG");
         childTransform.gameObject.SetActive(IsFlag);
-
     }
 }

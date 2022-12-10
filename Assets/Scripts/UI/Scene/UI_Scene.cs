@@ -25,6 +25,7 @@ public class UI_Scene : UI_Base
 	}
 
 
+
     public void SetMineText(int mine)
     {
         GetText((int)TextMeshProUGUIs.MineText).text = $"Mine : {mine}";

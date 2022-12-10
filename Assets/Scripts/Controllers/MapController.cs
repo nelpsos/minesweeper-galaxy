@@ -23,16 +23,15 @@ public class MapController : MonoBehaviour
 
     public void Init(int maxMine, int row, int col)
     {
-        // ƒ¡∆Æ∑—∑Ø ª˝º∫
+        // Ïª®Ìä∏Î°§Îü¨ ÏÉùÏÑ±
         _cellController = new CellController[row, col];
         _row = row;
         _col = col;
 
-
-        //«¡∏Æ∆’ ª˝º∫
-        for (int i = 0; i < row; i++)
+        //ÌîÑÎ¶¨Ìåπ ÏÉùÏÑ±
+        for (int y = 0; y < row; y++)
         {
-            for (int j = 0; j < col; j++)
+            for (int x = 0; x < col; x++)
             {
                 GameObject gameObject = Managers.Resource.Instantiate("Cell", transform);
                 if (gameObject != null)
@@ -40,6 +39,7 @@ public class MapController : MonoBehaviour
                     _cellController[i, j] = gameObject.GetComponent<CellController>();
                     gameObject.name = "Cell" + "_" + i.ToString() + "_" + j.ToString();
                     gameObject.transform.position = new Vector3(i - row / 2, j - col / 2, 0);
+
                 }
             }
         }
@@ -55,12 +55,12 @@ public class MapController : MonoBehaviour
             maxMine--;
         }
 
-        //∫Ì∑œ ºø º≥¡§
+        //Î∏îÎ°ù ÏÖÄ ÏÑ§Ï†ï
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
-                //¡ˆ∑⁄∞° æ∆¥— ∞ÊøÏ ¡÷∫Ø ∞ÀªÁ √º≈© 
+                //ÏßÄÎ¢∞Í∞Ä ÏïÑÎãå Í≤ΩÏö∞ Ï£ºÎ≥Ä Í≤ÄÏÇ¨ Ï≤¥ÌÅ¨ 
                 if (_cellController[i, j].HaveMine == false)
                 {
                     int adjacentMineCount = 0;
@@ -87,7 +87,7 @@ public class MapController : MonoBehaviour
 
     public void Clear()
     {
-        //«¡∏Æ∆’ ª˝º∫
+        //ÌîÑÎ¶¨Ìåπ ÏÉùÏÑ±
         for (int x = 0; x < _row; x++)
         {
             for (int y = 0; y < _col; y++)
