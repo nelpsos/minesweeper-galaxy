@@ -25,71 +25,70 @@ public class CellController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Init(int x, int y, MapController mapController)
+    public void OnMouseLClick()
     {
-        _x = x;
-        _y = y;
-
-        _mapController = mapController;
-
-        gameObject.name = "Cell" + "_" + y.ToString() + "_" + x.ToString();
-        gameObject.transform.position = new Vector3(y, x, 0);
-    }
-
-    public void OpenCell()
-    {
-        //ø¿«¬ ªÛ≈¬∑Œ ∫Ø∞Ê
+        //Ïò§Ìîà ÏÉÅÌÉúÎ°ú Î≥ÄÍ≤Ω
         CellState = Define.CellState.OPEN;
 
-        //ªˆªÛ ∫Ø∞Ê
+        //ÏÉâÏÉÅ Î≥ÄÍ≤Ω
         _spriteRenderer.color = Color.black;
         
         if (HaveMine)
         {
-            //∏∂¿Œ ºø¿Œ ∞ÊøÏ
+            //ÎßàÏù∏ ÏÖÄÏù∏ Í≤ΩÏö∞
             UnityEngine.Transform childTransform = this.transform.Find("MINE");
             childTransform.gameObject.SetActive(true);
 
-            Managers.GameManager.OnReduceLife(1);
+            Managers.GameManager.OnClickMine();
+
         }
         else
         {
-            //¡§ªÛ¿˚ ø¿«¬
+            //Ï†ïÏÉÅÏ†Å Ïò§Ìîà
             string[] names = Enum.GetNames(typeof(Define.MineCount));
 
-            //∏µÁ ¿⁄Ωƒ≥ÎµÂ ∫Ò»∞º∫»≠
+            //Î™®Îì† ÏûêÏãùÎÖ∏Îìú ÎπÑÌôúÏÑ±Ìôî
             foreach (UnityEngine.Transform child in this.transform)
                 child.gameObject.SetActive(false);
 
-            //¡÷∫Øø° ∏∂¿Œ¿Ã ¿÷¥¬∞ÊøÏø°∏∏ 
+            //Ï£ºÎ≥ÄÏóê ÎßàÏù∏Ïù¥ ÏûàÎäîÍ≤ΩÏö∞ÏóêÎßå 
             if (AdjacentMineCount > 0)
             {
                 UnityEngine.Transform childTransform = this.transform.Find(names[AdjacentMineCount]);
                 childTransform.gameObject.SetActive(true);
             }
         }
+
+        if (CellState == Define.CellState.OPEN)
+            _spriteRenderer.color = Color.black;
+        else
+            _spriteRenderer.color = Color.white;
     }
 
     public void SetFlag()
     {
-        IsFlag = !IsFlag;
+        // Flag ÏÑ§Ï†ïÏùÑ ÏïàÌïú ÏÉÅÌÉú
+        if(IsFlag == false)
+        {
+            IsFlag = true;
 
-        UnityEngine.Transform childTransform = this.transform.Find("FLAG");
-        if (IsFlag)
-            childTransform.gameObject.SetActive(true);
+            if (HaveMine)
+            {
+                Managers.GameManager.OnFindMine();
+            }
+        }
         else
-            childTransform.gameObject.SetActive(false);
+        {
+            // Flag Ìï¥Ï†ú
 
-        Managers.GameManager.OnSetFlag(IsFlag);
-    }
+            if (HaveMine)
+            {
+                Managers.GameManager.OnFindMine();
+            }
+        }
 
-    public void OnMouseLClick()
-    {
-        _mapController.OpenCell(_x,_y);
-    }
-
-    public void OnMouseRClick()
-    {
-        SetFlag();
+        //ÏïÑÏù¥ÏΩî„Ñ¥ ÏÑ§Ï†ï
+        UnityEngine.Transform childTransform = this.transform.Find("FLAG");
+        childTransform.gameObject.SetActive(IsFlag);
     }
 }

@@ -11,6 +11,8 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Managers.GameManager.GameModeAction -= OnMapReceiveGameMode;
+        Managers.GameManager.GameModeAction += OnMapReceiveGameMode;
     }
 
     // Update is called once per frame
@@ -21,12 +23,12 @@ public class MapController : MonoBehaviour
 
     public void Init(int maxMine, int row, int col)
     {
-        // ƒ¡∆Æ∑—∑Ø ª˝º∫
+        // Ïª®Ìä∏Î°§Îü¨ ÏÉùÏÑ±
         _cellController = new CellController[row, col];
         _row = row;
         _col = col;
 
-        //«¡∏Æ∆’ ª˝º∫
+        //ÌîÑÎ¶¨Ìåπ ÏÉùÏÑ±
         for (int y = 0; y < row; y++)
         {
             for (int x = 0; x < col; x++)
@@ -34,8 +36,10 @@ public class MapController : MonoBehaviour
                 GameObject gameObject = Managers.Resource.Instantiate("Cell", transform);
                 if (gameObject != null)
                 {
-                    _cellController[y, x] = gameObject.GetComponent<CellController>();
-                    _cellController[y, x].Init(y, x, this);
+                    _cellController[i, j] = gameObject.GetComponent<CellController>();
+                    gameObject.name = "Cell" + "_" + i.ToString() + "_" + j.ToString();
+                    gameObject.transform.position = new Vector3(i - row / 2, j - col / 2, 0);
+
                 }
             }
         }
@@ -51,12 +55,12 @@ public class MapController : MonoBehaviour
             maxMine--;
         }
 
-        //∫Ì∑œ ºø º≥¡§
+        //Î∏îÎ°ù ÏÖÄ ÏÑ§Ï†ï
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
-                //¡ˆ∑⁄∞° æ∆¥— ∞ÊøÏ ¡÷∫Ø ∞ÀªÁ √º≈© 
+                //ÏßÄÎ¢∞Í∞Ä ÏïÑÎãå Í≤ΩÏö∞ Ï£ºÎ≥Ä Í≤ÄÏÇ¨ Ï≤¥ÌÅ¨ 
                 if (_cellController[i, j].HaveMine == false)
                 {
                     int adjacentMineCount = 0;
@@ -81,37 +85,59 @@ public class MapController : MonoBehaviour
         }
     }
 
-
-    public void OpenCell(int x, int y)
+    public void Clear()
     {
-        _cellController[x, y].OpenCell();
-
-        //OpenAdjacentCell(x, y);
-    }
-
-    public void OpenAdjacentCell(int pivotX, int pivotY)
-    {
-        for (int i = 0; i < Define.xIndex.Length; ++i)
+        //ÌîÑÎ¶¨Ìåπ ÏÉùÏÑ±
+        for (int x = 0; x < _row; x++)
         {
-            int x = pivotX + Define.xIndex[i];
-            int y = pivotY + Define.yIndex[i];
-
-            if (x < 0 || x >= _row)
-                continue;
-
-            if (y < 0 || y >= _col)
-                continue;
-
-
-            //∏∂¿Œ¿Œ æ∆¥—∞ÊøÏ ø¿«¬
-            if (_cellController[x, y].HaveMine == false)
+            for (int y = 0; y < _col; y++)
             {
-                _cellController[x, y].OpenCell();
-
-                //¡÷∫Ø ¡ˆ∑⁄∞° æ¯¥¬∞ÊøÏ ¿Á±Õ ≈Ωªˆ
-                if(_cellController[x, y].AdjacentMineCount == 0)
-                    OpenAdjacentCell(x, y);
+                Managers.Resource.Destroy(_cellController[y, x].gameObject);
             }
         }
+    }
+
+    public void OnMapReceiveGameMode(Define.GameMode gameMode)
+    {
+        switch (gameMode)
+        {
+            case Define.GameMode.Ready:
+                {
+                    gameObject.SetActive(false);
+                }
+                break;
+            case Define.GameMode.Play:
+                {
+                    gameObject.SetActive(true);
+                }
+                break;
+            case Define.GameMode.Pause:
+                break;
+            case Define.GameMode.GameOver:
+                break;
+            case Define.GameMode.Clear:
+                {
+                    Managers.UI.ShowPopupUI<UI_ClearGame>("UI_ClearGame");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int GetCorrectFind()
+    {
+        int findMine = 0;
+
+        for (int y = 0; y < _row; y++)
+        {
+            for (int x = 0; x < _col; x++)
+            {
+                if (_cellController[y, x].HaveMine && _cellController[y, x].IsFlag)
+                    findMine++;
+            }
+        }
+
+        return findMine;
     }
 }

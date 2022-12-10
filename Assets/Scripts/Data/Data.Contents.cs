@@ -3,26 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#region Stat
+#region Stage
 
 [Serializable]
-public class Stat
+public class Stage
 {
 	public int level;
-	public int hp;
-	public int attack;
+	public int monster;
+	public int col;
+	public int row;
+	public int mine;
 }
 
 [Serializable]
-public class StatData : ILoader<int, Stat>
+public class StageData : ILoader<int, Stage>
 {
-	public List<Stat> stats = new List<Stat>();
+	public List<Stage> stages = new List<Stage>();
 
-	public Dictionary<int, Stat> MakeDict()
+	public Dictionary<int, Stage> MakeDict()
 	{
-		Dictionary<int, Stat> dict = new Dictionary<int, Stat>();
-		foreach (Stat stat in stats)
-			dict.Add(stat.level, stat);
+		Dictionary<int, Stage> dict = new Dictionary<int, Stage>();
+		foreach (Stage stage in stages)
+			dict.Add(stage.level, stage);
 		return dict;
 	}
 }

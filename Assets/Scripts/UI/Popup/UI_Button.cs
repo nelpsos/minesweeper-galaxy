@@ -41,7 +41,7 @@ public class UI_Button : UI_Popup
 
     public void OnButtonGameStart(PointerEventData data)
     {
-        Managers.GameManager.GameStart(5,5,5);
+        Managers.GameManager.ChangeGameMode(Define.GameMode.Ready);
     }
 
     public void OnButtonCameraZoomUp(PointerEventData data)

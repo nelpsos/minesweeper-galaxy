@@ -1,49 +1,97 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GameManager
 {
-    [SerializeField]
-    int _mineCount = 0;  //≥≤¿∫ ¡ˆ∑⁄ ∞≥ºˆ
 
     [SerializeField]
-    float _remainTime = 0;    //≥≤¿∫ Ω√∞£
+    int _mineCount = 0;  //ÎÇ®ÏùÄ ÏßÄÎ¢∞ Í∞úÏàò
 
     [SerializeField]
-    float _time = 0;    //∞‘¿” ¡¯«‡ Ω√∞£ 
+    float _remainTime = 0;    //ÎÇ®ÏùÄ ÏãúÍ∞Ñ
 
     [SerializeField]
-    int _life = 3;
+    int _life = 3;    //ÎÇ®ÏùÄ ÏãúÍ∞Ñ
 
-    public Define.GameMode GameMode { get; set; }
+    [SerializeField]
+    int _level = 0;
+
+    [SerializeField]
+    Stage _stageData;
+
+    UI_Scene _uiScene;
+    MapController _mapController;
+
+    public Define.GameMode _gameMode;
+    public Define.GameMode GameMode
+    {
+        get { return _gameMode; }
+        set { _gameMode = value; }
+    }
 
     public Action<Define.GameMode> GameModeAction = null;
 
     public void Init()
-    {
+    {   
+        Managers.UI.ShowSceneUI<UI_Scene>("UI_Scene");
+        Managers.UI.ShowPopupUI<UI_Button>("UI_Button");
+
+        GameObject go = Managers.Resource.Instantiate($"Map");
+        _mapController = go.GetOrAddComponent<MapController>();
+
+        _uiScene = Managers.UI.GetUIScene();
     }
 
-    public void GameStart(int mineCount, int row, int col)
+    public void StageClear()
     {
-        MapController mapController = GameObject.FindWithTag("Map").GetComponent<MapController>();
-        mapController.Init(mineCount, row, col);
+        _level++;
+    }
 
-        _mineCount = mineCount;
-        _life = 3;
 
-        Managers.UI.GetUIScene().SetLifeText(_life);
-        Managers.UI.GetUIScene().SetMineText(_mineCount);
+    private void InitGame()
+    {
+        _stageData = Managers.Data.StageDict[_level];
+        _mineCount = _stageData.mine;
+        _remainTime = 100f;
 
-        ChangeGameMode(Define.GameMode.Play);
+        _mapController.Init(_stageData.mine, _stageData.row, _stageData.col);
+
+        _uiScene.SetMineText(_mineCount);
+        _uiScene.SetLifeText(_life);
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
     {
         GameMode = gameMode;
+
+        switch (gameMode)
+        {
+            case Define.GameMode.Ready:
+                {
+                    Managers.UI.ShowPopupUI<UI_ReadyGame>("UI_ReadyGame");
+
+                    InitGame();
+                }
+                break;
+            case Define.GameMode.Play:
+                {
+                    
+                }
+                break;
+            case Define.GameMode.Pause:
+                break;
+            case Define.GameMode.GameOver:
+                break;
+            case Define.GameMode.Clear:
+                _mapController.Clear();
+                break;
+            default:
+                break;
+        }
 
         if(GameModeAction != null) 
             GameModeAction.Invoke(GameMode);
@@ -51,16 +99,56 @@ public class GameManager
 
     public void OnUpdate()
     {
-        //Ω√∞£ √º≈©
+        //ÏãúÍ∞Ñ Ï≤¥ÌÅ¨
         _remainTime -= Time.deltaTime;
-        _time += Time.deltaTime;
+        _uiScene.SetTimeText(_remainTime);
 
-        Managers.UI.GetUIScene().SetTimeText((int)_time);
+        //if(_remainTime < 0)
+        //{
+        //    ChangeGameMode(Define.GameMode.GameOver);
+        //}
+    }
 
-        if (_remainTime < 0)
+    public void OnClickMine()
+    {
+        _life--;
+
+        _uiScene.SetLifeText(_life);
+
+        if(_life<=0)
         {
-            //ChangeGameMode(Define.GameMode.GameOver);
+            ChangeGameMode(Define.GameMode.GameOver);
         }
+    }
+
+    public void OnFindMine()
+    {
+        _mineCount--;
+
+        if(_mineCount <= 0 )
+        {
+            int findMine = _mapController.GetCorrectFind();
+            if(findMine == _stageData.mine)
+            {
+                ChangeGameMode(Define.GameMode.Clear);
+            }
+        }
+    } 
+
+    public void OnCancelFindMine()
+    {
+        _mineCount++;
+    }
+
+    public void OnNextStage()
+    {
+        _level++;
+
+    }
+
+    public Stage GetStageData()
+    {
+        return _stageData;
     }
 
     public void OnReduceLife(int reduceValue)
