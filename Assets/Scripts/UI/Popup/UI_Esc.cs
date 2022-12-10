@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_ESC : UI_Popup
+public class UI_Setting : UI_Popup
 {
     enum Buttons
     {
@@ -32,20 +32,14 @@ public class UI_ESC : UI_Popup
 
     public void OnButtonSetting(PointerEventData data)
     {
-        Managers.GameManager.GameStart(5,5,5);
+        //Managers.GameManager.GameStart(5,5,5);
     }
 
     public void OnButtonExit(PointerEventData data)
     {
-        Camera.main.orthographicSize++;
-        if (Camera.main.orthographicSize > 20)
-            Camera.main.orthographicSize = 20;
+        //Camera.main.orthographicSize++;
+       // if (Camera.main.orthographicSize > 20)
+          //  Camera.main.orthographicSize = 20;
     }
 
-    public void OnButtonCameraZoomDown(PointerEventData data)
-    {
-        Camera.main.orthographicSize--;
-        if (Camera.main.orthographicSize < 5)
-            Camera.main.orthographicSize = 5;
-    }
 }

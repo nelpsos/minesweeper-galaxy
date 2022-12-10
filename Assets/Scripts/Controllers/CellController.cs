@@ -65,7 +65,7 @@ public class CellController : MonoBehaviour
             _spriteRenderer.color = Color.white;
     }
 
-    public void SetFlag()
+    public void OnMouseRClick()
     {
         // Flag 설정을 안한 상태
         if(IsFlag == false)
@@ -80,7 +80,6 @@ public class CellController : MonoBehaviour
         else
         {
             // Flag 해제
-
             if (HaveMine)
             {
                 Managers.GameManager.OnFindMine();

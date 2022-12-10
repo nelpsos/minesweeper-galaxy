@@ -36,9 +36,9 @@ public class MapController : MonoBehaviour
                 GameObject gameObject = Managers.Resource.Instantiate("Cell", transform);
                 if (gameObject != null)
                 {
-                    _cellController[i, j] = gameObject.GetComponent<CellController>();
-                    gameObject.name = "Cell" + "_" + i.ToString() + "_" + j.ToString();
-                    gameObject.transform.position = new Vector3(i - row / 2, j - col / 2, 0);
+                    _cellController[y, x] = gameObject.GetComponent<CellController>();
+                    gameObject.name = "Cell" + "_" + x.ToString() + "_" + y.ToString();
+                    gameObject.transform.position = new Vector3(x - col / 2,y - row / 2, 0);
 
                 }
             }
@@ -56,30 +56,30 @@ public class MapController : MonoBehaviour
         }
 
         //블록 셀 설정
-        for (int i = 0; i < row; i++)
+        for (int y = 0; y < row; y++)
         {
-            for (int j = 0; j < col; j++)
+            for (int x = 0; x < col; x++)
             {
                 //지뢰가 아닌 경우 주변 검사 체크 
-                if (_cellController[i, j].HaveMine == false)
+                if (_cellController[y, x].HaveMine == false)
                 {
                     int adjacentMineCount = 0;
                     for (int k = 0; k < Define.xIndex.Length; ++k)
                     {
-                        int x = i + Define.xIndex[k];
-                        int y = j + Define.yIndex[k];
+                        int xx = x + Define.xIndex[k];
+                        int yy = y + Define.yIndex[k];
 
-                        if (x < 0 || x >= _row)
+                        if (xx < 0 || xx >= _row)
                             continue;
 
-                        if (y < 0 || y >= _col)
+                        if (yy < 0 || yy >= _col)
                             continue;
 
-                        if (_cellController[x, y].HaveMine)
+                        if (_cellController[yy, xx].HaveMine)
                             adjacentMineCount++;
 
                     }
-                   _cellController[i, j].AdjacentMineCount = adjacentMineCount;
+                   _cellController[y, x].AdjacentMineCount = adjacentMineCount;
                 }
             }
         }
