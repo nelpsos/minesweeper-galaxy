@@ -59,10 +59,8 @@ public class Define
         Pause,
         Clear,
         GameOver,
-        Clear,
     }
 
-   
 
     public static int[] xIndex = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
     public static int[] yIndex = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
