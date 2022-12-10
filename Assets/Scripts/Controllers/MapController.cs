@@ -85,24 +85,59 @@ public class MapController : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        //ÇÁ¸®ÆÕ »ý¼º
+        for (int x = 0; x < _row; x++)
+        {
+            for (int y = 0; y < _col; y++)
+            {
+                Managers.Resource.Destroy(_cellController[y, x].gameObject);
+            }
+        }
+    }
+
     public void OnMapReceiveGameMode(Define.GameMode gameMode)
     {
         switch (gameMode)
         {
             case Define.GameMode.Ready:
                 {
-                    Stage stageData = Managers.GameManager.GetStageData();
-                    Init(stageData.mine, stageData.row, stageData.col);
+                    gameObject.SetActive(false);
                 }
                 break;
             case Define.GameMode.Play:
+                {
+                    gameObject.SetActive(true);
+                }
                 break;
             case Define.GameMode.Pause:
                 break;
             case Define.GameMode.GameOver:
                 break;
+            case Define.GameMode.Clear:
+                {
+                    Managers.UI.ShowPopupUI<UI_ClearGame>("UI_ClearGame");
+                }
+                break;
             default:
                 break;
         }
+    }
+
+    public int GetCorrectFind()
+    {
+        int findMine = 0;
+
+        for (int y = 0; y < _row; y++)
+        {
+            for (int x = 0; x < _col; x++)
+            {
+                if (_cellController[y, x].HaveMine && _cellController[y, x].IsFlag)
+                    findMine++;
+            }
+        }
+
+        return findMine;
     }
 }

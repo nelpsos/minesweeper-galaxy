@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
     void Start()
     {
         Managers.GameManager.GameModeAction -= OnCameraReciveGameMode;

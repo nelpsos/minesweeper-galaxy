@@ -19,8 +19,6 @@ public class CellController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-
     public void OnMouseLClick()
     {
         //오픈 상태로 변경
@@ -32,6 +30,8 @@ public class CellController : MonoBehaviour
             //게임 오버
             UnityEngine.Transform childTransform = this.transform.Find("MINE");
             childTransform.gameObject.SetActive(true);
+
+            Managers.GameManager.OnClickMine();
         }
         else
         {
@@ -54,16 +54,35 @@ public class CellController : MonoBehaviour
             _spriteRenderer.color = Color.black;
         else
             _spriteRenderer.color = Color.white;
+
+
     }
 
     public void OnMouseRClick()
     {
-        IsFlag = !IsFlag;
+        // Flag 설정을 안한 상태
+        if(IsFlag == false)
+        {
+            IsFlag = true;
 
-        UnityEngine.Transform childTransform = this.transform.Find("FLAG");
-        if (IsFlag)
-            childTransform.gameObject.SetActive(true);
+            if (HaveMine)
+            {
+                Managers.GameManager.OnFindMine();
+            }
+        }
         else
-            childTransform.gameObject.SetActive(false);
+        {
+            // Flag 해제
+
+            if (HaveMine)
+            {
+                Managers.GameManager.OnFindMine();
+            }
+        }
+
+        //아이코ㄴ 설정
+        UnityEngine.Transform childTransform = this.transform.Find("FLAG");
+        childTransform.gameObject.SetActive(IsFlag);
+
     }
 }
