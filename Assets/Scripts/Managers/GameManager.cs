@@ -12,10 +12,7 @@ public class GameManager
     int _mineCount = 0;  //남은 지뢰 개수
 
     [SerializeField]
-    float _remainTime = 0;    //남은 시간
-
-    [SerializeField]
-    int _life = 3;    //남은 시간
+    int _life = 3;    // 목숨
 
     [SerializeField]
     int _level = 0;
@@ -23,7 +20,6 @@ public class GameManager
     [SerializeField]
     Stage _stageData;
 
-    UI_Scene _uiScene;
     MapController _mapController;
 
     public Define.GameMode _gameMode;
@@ -37,13 +33,16 @@ public class GameManager
 
     public void Init()
     {   
-        Managers.UI.ShowSceneUI<UI_Scene>("UI_Scene");
+        Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
+        Managers.UI.ShowSceneUI<UI_Animal>("UI_Animal");
+        Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
+        Managers.UI.ShowSceneUI<UI_Mine>("UI_Mine");
+
         Managers.UI.ShowPopupUI<UI_Button>("UI_Button");
 
         GameObject go = Managers.Resource.Instantiate($"Map");
         _mapController = go.GetOrAddComponent<MapController>();
 
-        _uiScene = Managers.UI.GetUIScene();
     }
 
     public void StageClear()
@@ -56,12 +55,8 @@ public class GameManager
     {
         _stageData = Managers.Data.StageDict[_level];
         _mineCount = _stageData.mine;
-        _remainTime = 100f;
-
+ 
         _mapController.Init(_stageData.mine, _stageData.row, _stageData.col);
-
-        _uiScene.SetMineText(_mineCount);
-        _uiScene.SetLifeText(_life);
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -100,8 +95,8 @@ public class GameManager
     public void OnUpdate()
     {
         //시간 체크
-        _remainTime -= Time.deltaTime;
-        _uiScene.SetTimeText(_remainTime);
+        //_remainTime -= Time.deltaTime;
+        //_uiScene.SetTimeText(_remainTime);
 
         //if(_remainTime < 0)
         //{
@@ -113,7 +108,7 @@ public class GameManager
     {
         _life--;
 
-        _uiScene.SetLifeText(_life);
+        //_uiScene.SetLifeText(_life);
 
         if(_life<=0)
         {
@@ -174,6 +169,6 @@ public class GameManager
             ChangeGameMode(Define.GameMode.Clear);
         }
 
-        Managers.UI.GetUIScene().SetMineText(_mineCount);
+       // Managers.UI.GetUIScene().SetMineText(_mineCount);
     }
 }
