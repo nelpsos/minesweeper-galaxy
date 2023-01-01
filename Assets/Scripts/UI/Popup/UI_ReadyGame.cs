@@ -14,9 +14,6 @@ public class UI_ReadyGame : UI_Popup
     private void Start()
     {
         Init();
-
-        //Managers.GameManager.GameModeAction -= OnGameReadyReceiveGameMode;
-        //Managers.GameManager.GameModeAction += OnGameReadyReceiveGameMode;
     }
 
     public override void Init()

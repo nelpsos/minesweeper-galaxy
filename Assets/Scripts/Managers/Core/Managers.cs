@@ -35,7 +35,7 @@ public class Managers : MonoBehaviour
     void Update()
     {
         //게임 모드중에만 인풋 업데이트
-        if (_gameManager.GameMode == Define.GameMode.Play)
+        //if (_gameManager.GameMode == Define.GameMode.Play)
         {
             _input.OnUpdate();
             _gameManager.OnUpdate();

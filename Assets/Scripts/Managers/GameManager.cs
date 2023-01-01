@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager
 {
@@ -32,7 +33,10 @@ public class GameManager
     public Action<Define.GameMode> GameModeAction = null;
 
     public void Init()
-    {   
+    {
+        Managers.Input.KeyAction -= OnKeyDown;
+        Managers.Input.KeyAction += OnKeyDown;
+
         Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
         Managers.UI.ShowSceneUI<UI_Animal>("UI_Animal");
         Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
@@ -169,6 +173,19 @@ public class GameManager
             ChangeGameMode(Define.GameMode.Clear);
         }
 
-       // Managers.UI.GetUIScene().SetMineText(_mineCount);
+    }
+
+
+    public void OnKeyDown()
+    {
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Managers.UI.CloseAllPopupUI();
+        }
     }
 }

@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class UI_ClearGame : UI_Popup
 {
+    [SerializeField]
+    public float _visibleTime = 1;
+
     enum Buttons
     {
         NextStageButton,
@@ -17,24 +20,21 @@ public class UI_ClearGame : UI_Popup
     private void Start()
     {
         Init();
-
-        //Managers.GameManager.GameModeAction -= OnGameReadyReceiveGameMode;
-        //Managers.GameManager.GameModeAction += OnGameReadyReceiveGameMode;
     }
 
     public override void Init()
     {
         base.Init();
 
-        Bind<Button>(typeof(Buttons));
-
-        GetButton((int)Buttons.NextStageButton).gameObject.BindEvent(OnNextStageButton);
+        StartCoroutine("UIVisibleGameClear", _visibleTime);
     }
 
-    public void OnNextStageButton(PointerEventData data)
+    IEnumerator UIVisibleGameClear(float seconds)
     {
+        yield return new WaitForSeconds(seconds);
+
         Managers.UI.ClosePopupUI(this);
-        Managers.GameManager.OnNextStage();
-        Managers.GameManager.ChangeGameMode(Define.GameMode.Ready);
+
+        Managers.GameManager.ChangeGameMode(Define.GameMode.Play);
     }
 }
