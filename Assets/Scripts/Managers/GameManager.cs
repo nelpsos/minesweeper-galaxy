@@ -180,7 +180,7 @@ public class GameManager
     {
         if(Input.GetKeyDown(KeyCode.F2))
         {
-            Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
+            UI_RoundInfo info = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
         }
 
         if (Input.GetKeyDown(KeyCode.F3))

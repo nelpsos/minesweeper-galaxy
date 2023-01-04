@@ -1,0 +1,25 @@
+{
+  "animals": [
+    {
+      "index": 0,
+      "name": "pig",
+      "effect": 0,
+      "resouce": "Texture/Icon/Icon-Pig",
+      "explanation": "돼지"
+    },
+    {
+      "index": 1,
+      "name": "dog",
+      "effect": 1,
+      "resouce": "Texture/Icon/Icon-Dog",
+      "explanation": "개"
+    },
+    {
+      "index": 2,
+      "name": "chicken",
+      "effect": 2,
+      "resouce": "Texture/Icon/Icon-Chicken",
+      "explanation": "닭"
+    }
+  ]
+}

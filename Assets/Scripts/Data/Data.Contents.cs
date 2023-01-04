@@ -30,3 +30,31 @@ public class StageData : ILoader<int, Stage>
 }
 
 #endregion
+
+#region Animal
+
+[Serializable]
+public class Animal
+{
+    public int index;
+    public string name;
+    public int effect;
+    public string resouce;
+    public string explanation;
+}
+
+[Serializable]
+public class AnimalData : ILoader<int, Animal>
+{
+    public List<Animal> animals = new List<Animal>();
+
+    public Dictionary<int, Animal> MakeDict()
+    {
+        Dictionary<int, Animal> dict = new Dictionary<int, Animal>();
+        foreach (Animal animal in animals)
+            dict.Add(animal.index, animal);
+        return dict;
+    }
+}
+
+#endregion
