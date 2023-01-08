@@ -178,14 +178,19 @@ public class GameManager
 
     public void OnKeyDown()
     {
-        if(Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Managers.UI.CloseAllPopupUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             UI_RoundInfo info = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
         }
 
-        if (Input.GetKeyDown(KeyCode.F3))
+        if(Input.GetKeyDown(KeyCode.F3))
         {
-            Managers.UI.CloseAllPopupUI();
+            UI_RepairItemReward repairItem = Managers.UI.ShowPopupUI<UI_RepairItemReward>("UI_RepairItemReward");
         }
     }
 }

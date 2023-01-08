@@ -25,7 +25,7 @@ public class UI_Animal : UI_Scene
         foreach (Transform child in gridPanel.transform)
             Managers.Resource.Destroy(child.gameObject);
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Animal_Item>(gridPanel.transform).gameObject;
             UI_Animal_Item animalItem = item.GetOrAddComponent<UI_Animal_Item>();

@@ -58,3 +58,32 @@ public class AnimalData : ILoader<int, Animal>
 }
 
 #endregion
+
+#region RepairItem
+
+[Serializable]
+public class RepairItem
+{
+    public int index;
+    public string name;
+    public int grade;
+    public int collect;
+    public string resouce;
+    public string explanation;
+}
+
+[Serializable]
+public class RepairItemData : ILoader<int, RepairItem>
+{
+    public List<RepairItem> repairItems = new List<RepairItem>();
+
+    public Dictionary<int, RepairItem> MakeDict()
+    {
+        Dictionary<int, RepairItem> dict = new Dictionary<int, RepairItem>();
+        foreach (RepairItem repairItem in repairItems)
+            dict.Add(repairItem.index, repairItem);
+        return dict;
+    }
+}
+
+#endregion

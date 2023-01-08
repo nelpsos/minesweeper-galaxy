@@ -2,24 +2,24 @@
   "animals": [
     {
       "index": 0,
-      "name": "pig",
+      "name": "돼지",
       "effect": 0,
       "resouce": "Texture/Icon/Icon-Pig",
-      "explanation": "돼지"
+      "explanation": "효과 설명"
     },
     {
       "index": 1,
-      "name": "dog",
+      "name": "강아지",
       "effect": 1,
       "resouce": "Texture/Icon/Icon-Dog",
-      "explanation": "개"
+      "explanation": "효과 설명"
     },
     {
       "index": 2,
-      "name": "chicken",
+      "name": "닭",
       "effect": 2,
       "resouce": "Texture/Icon/Icon-Chicken",
-      "explanation": "닭"
+      "explanation": "효과 설명"
     }
   ]
 }
