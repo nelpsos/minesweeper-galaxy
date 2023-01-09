@@ -7,7 +7,7 @@ public class UIManager
     int _order = 10;
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    UI_Scene _sceneUI = null;
+    Dictionary<string, UI_Scene> _sceneUIDic = new Dictionary<string, UI_Scene>();
 
     public GameObject Root
     {
@@ -56,7 +56,7 @@ public class UIManager
 
 		GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
 		T sceneUI = Util.GetOrAddComponent<T>(go);
-        _sceneUI = sceneUI;
+        _sceneUIDic.Add(name, sceneUI);
 
 		go.transform.SetParent(Root.transform);
 
@@ -111,11 +111,15 @@ public class UIManager
     public void Clear()
     {
         CloseAllPopupUI();
-        _sceneUI = null;
+        _sceneUIDic.Clear();
     }
 
-    public UI_Scene GetUIScene()
+    public UI_Scene GetUIScene(string name = null)
     {
-        return _sceneUI;
+        UI_Scene sceneUI = null;
+        if (_sceneUIDic.TryGetValue(name,out sceneUI) == true)
+            return sceneUI;
+
+        return null;
     }
 }
