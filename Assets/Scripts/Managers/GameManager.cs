@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager
 {
@@ -12,10 +13,7 @@ public class GameManager
     int _mineCount = 0;  //남은 지뢰 개수
 
     [SerializeField]
-    float _remainTime = 0;    //남은 시간
-
-    [SerializeField]
-    int _life = 3;    //남은 시간
+    int _life = 3;    // 목숨
 
     [SerializeField]
     int _level = 0;
@@ -23,7 +21,6 @@ public class GameManager
     [SerializeField]
     Stage _stageData;
 
-    UI_Scene _uiScene;
     MapController _mapController;
 
     public Define.GameMode _gameMode;
@@ -36,14 +33,20 @@ public class GameManager
     public Action<Define.GameMode> GameModeAction = null;
 
     public void Init()
-    {   
-        Managers.UI.ShowSceneUI<UI_Scene>("UI_Scene");
+    {
+        Managers.Input.KeyAction -= OnKeyDown;
+        Managers.Input.KeyAction += OnKeyDown;
+
+        Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
+        Managers.UI.ShowSceneUI<UI_Animal>("UI_Animal");
+        Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
+        Managers.UI.ShowSceneUI<UI_Mine>("UI_Mine");
+
         Managers.UI.ShowPopupUI<UI_Button>("UI_Button");
 
         GameObject go = Managers.Resource.Instantiate($"Map");
         _mapController = go.GetOrAddComponent<MapController>();
 
-        _uiScene = Managers.UI.GetUIScene();
     }
 
     public void StageClear()
@@ -56,12 +59,8 @@ public class GameManager
     {
         _stageData = Managers.Data.StageDict[_level];
         _mineCount = _stageData.mine;
-        _remainTime = 100f;
-
+ 
         _mapController.Init(_stageData.mine, _stageData.row, _stageData.col);
-
-        _uiScene.SetMineText(_mineCount);
-        _uiScene.SetLifeText(_life);
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -100,8 +99,8 @@ public class GameManager
     public void OnUpdate()
     {
         //시간 체크
-        _remainTime -= Time.deltaTime;
-        _uiScene.SetTimeText(_remainTime);
+        //_remainTime -= Time.deltaTime;
+        //_uiScene.SetTimeText(_remainTime);
 
         //if(_remainTime < 0)
         //{
@@ -113,7 +112,7 @@ public class GameManager
     {
         _life--;
 
-        _uiScene.SetLifeText(_life);
+        //_uiScene.SetLifeText(_life);
 
         if(_life<=0)
         {
@@ -174,6 +173,24 @@ public class GameManager
             ChangeGameMode(Define.GameMode.Clear);
         }
 
-        Managers.UI.GetUIScene().SetMineText(_mineCount);
+    }
+
+
+    public void OnKeyDown()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Managers.UI.CloseAllPopupUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            UI_RoundInfo info = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
+        }
+
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            UI_RepairItemReward repairItem = Managers.UI.ShowPopupUI<UI_RepairItemReward>("UI_RepairItemReward");
+        }
     }
 }

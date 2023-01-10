@@ -23,6 +23,7 @@ public class Define
     {
         Click,
         Drag,
+        Over,
     }
 
     public enum MouseEvent
@@ -64,5 +65,7 @@ public class Define
 
     public static int[] xIndex = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
     public static int[] yIndex = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
+
+    public static int MAX_LIFE = 10;
 
 }
