@@ -16,10 +16,10 @@ public class GameManager
     int _life = 3;    // 목숨
 
     [SerializeField]
-    int _level = 0;
+    int _round = 1;
 
     [SerializeField]
-    Stage _stageData;
+    Round _roundData;
 
     MapController _mapController;
 
@@ -51,16 +51,16 @@ public class GameManager
 
     public void StageClear()
     {
-        _level++;
+        _round++;
     }
 
 
     private void InitGame()
     {
-        _stageData = Managers.Data.StageDict[_level];
-        _mineCount = _stageData.mine;
- 
-        _mapController.Init(_stageData.mine, _stageData.row, _stageData.col);
+        _roundData = Managers.Data.RoundDict[_round];
+        _mineCount = _roundData.square_mine;
+
+        _mapController.Init(_roundData.square_mine, _roundData.square_row, _roundData.square_column);
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -69,11 +69,16 @@ public class GameManager
 
         switch (gameMode)
         {
+            case Define.GameMode.RoundInfo:
+                {
+                    UI_RoundInfo roundInfo = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
+                    roundInfo.SetRoundInfo(_round);
+                }
+                break;
             case Define.GameMode.Ready:
                 {
-                    Managers.UI.ShowPopupUI<UI_ReadyGame>("UI_ReadyGame");
-
                     InitGame();
+                    Managers.UI.ShowPopupUI<UI_ReadyGame>("UI_ReadyGame");
                 }
                 break;
             case Define.GameMode.Play:
@@ -127,7 +132,7 @@ public class GameManager
         if(_mineCount <= 0 )
         {
             int findMine = _mapController.GetCorrectFind();
-            if(findMine == _stageData.mine)
+            if(findMine == _roundData.square_mine)
             {
                 ChangeGameMode(Define.GameMode.Clear);
             }
@@ -141,13 +146,13 @@ public class GameManager
 
     public void OnNextStage()
     {
-        _level++;
+        _round++;
 
     }
 
-    public Stage GetStageData()
+    public Round GetRoundData()
     {
-        return _stageData;
+        return _roundData;
     }
 
     public void OnReduceLife(int reduceValue)

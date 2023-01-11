@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4540272844629849665}
   - component: {fileID: 1219756591945552139}
   m_Layer: 5
-  m_Name: UI_Animal_Info_Item
+  m_Name: UI_Round_Animal_Info_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

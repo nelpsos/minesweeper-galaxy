@@ -38,7 +38,7 @@ public class UI_RepairItemReward : UI_Popup
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Repair_Item>(gridPanel.transform).gameObject;
             UI_Repair_Item uiItem = item.GetOrAddComponent<UI_Repair_Item>();
-            uiItem.SetRepairItemInfo(i);
+            uiItem.SetRepairItemInfo("생명 그릇 조각");
         }
 
         //

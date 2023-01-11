@@ -1,0 +1,28 @@
+{
+  "repairtools": [
+    {
+      "name": "생명 그릇 조각",
+      "rarity": 0,
+      "collect": 2,
+      "effect": "2개를 모으면 최대 생명 +1",
+      "type": "",
+      "resource": "Texture/Icon/Icon-Life"
+    },
+    {
+      "name": "사료 한 그릇",
+      "rarity": 0,
+      "collect": 0,
+      "effect": "생명 2개 회복",
+      "type": "",
+      "resource": "Texture/Icon/Icon-Apple"
+    },
+    {
+      "name": "방어막 충전",
+      "rarity": 0,
+      "collect": 0,
+      "effect": "임시 생명 1개 획득",
+      "type": "",
+      "resource": "Texture/Icon/Icon-Repair"
+    }
+  ]
+}

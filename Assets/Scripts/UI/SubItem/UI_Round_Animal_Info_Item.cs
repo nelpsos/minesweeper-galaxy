@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Animal_Info_Item : UI_Base
+public class UI_Round_Animal_Info_Item : UI_Base
 {
     public Image _icon;
     public TextMeshProUGUI _name;
@@ -13,7 +14,7 @@ public class UI_Animal_Info_Item : UI_Base
 
     enum GameObjects
     {
-        UI_Animal_Info_Item,
+        UI_Round_Animal_Info_Item,
     }
 
     void Start()
@@ -23,16 +24,20 @@ public class UI_Animal_Info_Item : UI_Base
 
     public override void Init()
     {
-        //Bind<GameObject>(typeof(GameObjects));
+        Bind<GameObject>(typeof(GameObjects));
 
-        //Get<GameObject>((int)GameObjects.UI_Animal_Info_Item).BindEvent((PointerEventData) => { Debug.Log($"아이템 클릭! {_name}"); });
+        //Get<GameObject>((int)GameObjects.UI_Round_Animal_Info_Item).BindEvent((PointerEventData) => 
+        //{ Debug.Log($"아이템 클릭! {_name}"); });
+        //Get<GameObject>((int)GameObjects.UI_Round_Animal_Info_Item).BindEvent(OnClick);
+
 
         //_icon = GetComponentInChildren<Image>();
         //_name = GetComponentInChildren<TextMeshProUGUI>();
         //_explanation = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void SetInfo(int animalIndex)
+
+    public void SetRoundAnimalInfo(int animalIndex)
     {
         Animal animalData = Managers.Data.AnimalDict[animalIndex];
 

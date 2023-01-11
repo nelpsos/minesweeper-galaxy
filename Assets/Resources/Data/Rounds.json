@@ -1,0 +1,31 @@
+{
+  "rounds" : [
+    {
+      "round": 1,
+      "animal": 0,
+      "square_row": 9,
+      "square_column": 9,
+      "square_mine": 10,
+      "hexagon_length": 6,
+      "hexagon_mine": 12
+    },
+    {
+      "round": 2,
+      "animal": 0,
+      "square_row": 12,
+      "square_column": 12,
+      "square_mine": 20,
+      "hexagon_length": 7,
+      "hexagon_mine": 19
+    },
+    {
+      "round": 3,
+      "animal": 1,
+      "square_row": 14,
+      "square_column": 14,
+      "square_mine": 30,
+      "hexagon_length": 8,
+      "hexagon_mine": 27
+    }
+  ]
+}

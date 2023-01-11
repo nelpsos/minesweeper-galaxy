@@ -11,15 +11,17 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
+    public Dictionary<int, Round> RoundDict { get; private set; } = new Dictionary<int, Round>();
     public Dictionary<int, Animal> AnimalDict { get; private set; } = new Dictionary<int, Animal>();
-    public Dictionary<int, RepairItem> RepairItemDict { get; private set; } = new Dictionary<int, RepairItem>();
+    public Dictionary<string, RepairTool> RepairItemDict { get; private set; } = new Dictionary<string, RepairTool>();
+    public Dictionary<string, Spacesuit> SpacesuitDict { get; private set; } = new Dictionary<string, Spacesuit>();
 
     public void Init()
     {
-        StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
+        RoundDict = LoadJson<RoundData, int, Round>("Rounds").MakeDict();
         AnimalDict = LoadJson<AnimalData, int, Animal>("AnimalData").MakeDict();
-        RepairItemDict = LoadJson<RepairItemData, int, RepairItem>("RepairItemData").MakeDict();
+        RepairItemDict = LoadJson<RepairToolData, string, RepairTool>("RepairTools").MakeDict();
+        SpacesuitDict = LoadJson<SpacesuitData, string, Spacesuit>("Spacesuits").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

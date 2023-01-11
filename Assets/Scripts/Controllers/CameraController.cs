@@ -47,8 +47,8 @@ public class CameraController : MonoBehaviour
         switch (gameMode)
         {
             case Define.GameMode.Ready:
-                Stage stageData = Managers.GameManager.GetStageData();
-                Camera.main.orthographicSize = stageData.col;
+                Round roundData = Managers.GameManager.GetRoundData();
+                Camera.main.orthographicSize = roundData.square_column;
                 break;
             case Define.GameMode.Play:
                 break;

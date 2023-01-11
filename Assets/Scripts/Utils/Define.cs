@@ -55,8 +55,10 @@ public class Define
 
     public enum GameMode
     {
+        RoundInfo,
         Ready,
         Play,
+        Reward,
         Pause,
         Clear,
         GameOver,
