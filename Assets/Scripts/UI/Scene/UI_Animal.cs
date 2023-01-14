@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class UI_Animal : UI_Scene
 {
+    const int MAX_ANIMAL_ITEM = 3;
+
+    UI_Animal_Item[] m_animalItemList = new UI_Animal_Item[MAX_ANIMAL_ITEM];
+
     enum GameObjects
     {
         Grid_Animal
@@ -25,12 +29,17 @@ public class UI_Animal : UI_Scene
         foreach (Transform child in gridPanel.transform)
             Managers.Resource.Destroy(child.gameObject);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < MAX_ANIMAL_ITEM; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Animal_Item>(gridPanel.transform).gameObject;
-            UI_Animal_Item animalItem = item.GetOrAddComponent<UI_Animal_Item>();
-            //invenItem.SetInfo($"집행검{i}번");
+            m_animalItemList[i] = item.GetOrAddComponent<UI_Animal_Item>();
         }
     }
 
+    public void SetAnimalItemInfo(int index, int tableIndex)
+    {
+        Animal animalData =  Managers.Data.AnimalDict[tableIndex];
+
+        m_animalItemList[index].SetAniamlIcon(animalData.resouce);
+    }
 }

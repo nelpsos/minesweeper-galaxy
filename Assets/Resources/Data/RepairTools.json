@@ -5,7 +5,7 @@
       "rarity": 0,
       "collect": 2,
       "effect": "2개를 모으면 최대 생명 +1",
-      "type": "",
+      "type": 0,
       "resource": "Texture/Icon/Icon-Life"
     },
     {

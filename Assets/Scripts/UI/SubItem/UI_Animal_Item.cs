@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class UI_Animal_Item : UI_Base
 {
- 
+    public Image _icon;
+
     enum GameObjects
     {
         Animal_Item_Icon,
@@ -26,9 +27,9 @@ public class UI_Animal_Item : UI_Base
         Get<GameObject>((int)GameObjects.Animal_Item_Icon).BindEvent(OnMouseOver);
     }
 
-    public void SetInfo(string name)
+    public void SetAniamlIcon(string icon)
     {
-        _name = name;
+        _icon.sprite = Resources.Load<Sprite>(icon) as Sprite;
     }
 
     public void OnMouseOver(PointerEventData data)

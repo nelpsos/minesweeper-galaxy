@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UI_Inventory : UI_Scene
 {
+    static int MAX_INVENTORY = 8;
+
+    UI_Inventory_Item[] m_inventory = new UI_Inventory_Item[MAX_INVENTORY];
 
     enum GameObjects
     {
@@ -34,12 +37,18 @@ public class UI_Inventory : UI_Scene
             Managers.Resource.Destroy(child.gameObject);
 
         // 실제 인벤토리 정보를 참고해서
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < MAX_INVENTORY; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Inventory_Item>(gridPanel.transform).gameObject;
-            UI_Inventory_Item invenItem = item.GetOrAddComponent<UI_Inventory_Item>();
+            m_inventory[i]= item.GetOrAddComponent<UI_Inventory_Item>();
             //invenItem.SetInfo($"집행검{i}번");
         }
+    }
+
+    public void SetInventoryIcon(int index, int tableIndex)
+    {
+        RepairTool repairtool =   Managers.Data.RepairItemDict[tableIndex];
+        m_inventory[index].
     }
 
     

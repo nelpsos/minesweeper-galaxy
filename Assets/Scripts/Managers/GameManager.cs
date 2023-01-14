@@ -37,6 +37,7 @@ public class GameManager
         Managers.Input.KeyAction -= OnKeyDown;
         Managers.Input.KeyAction += OnKeyDown;
 
+        //SceneUI
         Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
         Managers.UI.ShowSceneUI<UI_Animal>("UI_Animal");
         Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
@@ -60,7 +61,24 @@ public class GameManager
         _roundData = Managers.Data.RoundDict[_round];
         _mineCount = _roundData.square_mine;
 
+        //Mine 셋업
         _mapController.Init(_roundData.square_mine, _roundData.square_row, _roundData.square_column);
+
+
+        //Animal Settup
+        UI_Inventory uiInventory = Managers.UI.GetUIScene<UI_Inventory>("UI_Inventory");
+
+
+        //Item Setup
+        UI_Animal uiAnimal = Managers.UI.GetUIScene<UI_Animal>("UI_Animal");
+        uiAnimal.SetAnimalItemInfo(0, 0);
+        uiAnimal.SetAnimalItemInfo(1, 1);
+        uiAnimal.SetAnimalItemInfo(2, 2);
+
+        // Life Setup
+        UI_Life uiLife = Managers.UI.GetUIScene<UI_Life>("UI_Life");
+
+        Managers.UI.ShowSceneUI();
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -71,6 +89,7 @@ public class GameManager
         {
             case Define.GameMode.RoundInfo:
                 {
+                    //Managers.UI.HideSceneUI();
                     UI_RoundInfo roundInfo = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
                     roundInfo.SetRoundInfo(_round);
                 }

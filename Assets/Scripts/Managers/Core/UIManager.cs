@@ -114,12 +114,28 @@ public class UIManager
         _sceneUIDic.Clear();
     }
 
-    public UI_Scene GetUIScene(string name = null)
+    public T GetUIScene<T>(string name = null) where T : UI_Scene
     {
         UI_Scene sceneUI = null;
         if (_sceneUIDic.TryGetValue(name,out sceneUI) == true)
-            return sceneUI;
+            return (T)sceneUI;
 
         return null;
+    }
+
+    public void HideSceneUI()
+    {
+        foreach (var uiItem in _sceneUIDic)
+        {
+            uiItem.Value.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowSceneUI()
+    {
+        foreach (var uiItem in _sceneUIDic)
+        {
+            uiItem.Value.gameObject.SetActive(true);
+        }
     }
 }

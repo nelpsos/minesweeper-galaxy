@@ -24,7 +24,7 @@ public class UI_Inventory_Item : UI_Base
         Get<GameObject>((int)GameObjects.Inventory_Item_Icon).BindEvent((PointerEventData) => { Debug.Log($"아이템 클릭! {_name}"); });
     }
 
-    public void SetInfo(string name)
+    public void SetInfo(int name)
     {
         _name = name;
     }
