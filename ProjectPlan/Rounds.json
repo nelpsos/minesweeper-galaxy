@@ -1,92 +1,92 @@
 [
   {
-    "라운드": 1,
-    "외계 동물 수": 0,
-    "사각형-가로": 9,
-    "사각형-세로": 9,
-    "사각형-지뢰 개수": 10,
-    "육각형-길이": 6,
-    "육각형-지뢰 개수": 12
+    "round": 1,
+    "animalCount": 0,
+    "square_row": 9,
+    "square_column": 9,
+    "square_mine": 10,
+    "hexagon_length": 6,
+    "hexagon_mine": 12
   },
   {
-    "라운드": 2,
-    "외계 동물 수": 0,
-    "사각형-가로": 12,
-    "사각형-세로": 12,
-    "사각형-지뢰 개수": 20,
-    "육각형-길이": 7,
-    "육각형-지뢰 개수": 19
+    "round": 2,
+    "animalCount": 0,
+    "square_row": 12,
+    "square_column": 12,
+    "square_mine": 20,
+    "hexagon_length": 7,
+    "hexagon_mine": 19
   },
   {
-    "라운드": 3,
-    "외계 동물 수": 1,
-    "사각형-가로": 14,
-    "사각형-세로": 14,
-    "사각형-지뢰 개수": 30,
-    "육각형-길이": 8,
-    "육각형-지뢰 개수": 27
+    "round": 3,
+    "animalCount": 1,
+    "square_row": 14,
+    "square_column": 14,
+    "square_mine": 30,
+    "hexagon_length": 8,
+    "hexagon_mine": 27
   },
   {
-    "라운드": 4,
-    "외계 동물 수": 1,
-    "사각형-가로": 16,
-    "사각형-세로": 16,
-    "사각형-지뢰 개수": 40,
-    "육각형-길이": 9,
-    "육각형-지뢰 개수": 36
+    "round": 4,
+    "animalCount": 1,
+    "square_row": 16,
+    "square_column": 16,
+    "square_mine": 40,
+    "hexagon_length": 9,
+    "hexagon_mine": 36
   },
   {
-    "라운드": 5,
-    "외계 동물 수": 1,
-    "사각형-가로": 16,
-    "사각형-세로": 20,
-    "사각형-지뢰 개수": 55,
-    "육각형-길이": 10,
-    "육각형-지뢰 개수": 48
+    "round": 5,
+    "animalCount": 1,
+    "square_row": 16,
+    "square_column": 20,
+    "square_mine": 55,
+    "hexagon_length": 10,
+    "hexagon_mine": 48
   },
   {
-    "라운드": 6,
-    "외계 동물 수": 2,
-    "사각형-가로": 16,
-    "사각형-세로": 24,
-    "사각형-지뢰 개수": 70,
-    "육각형-길이": 11,
-    "육각형-지뢰 개수": 62
+    "round": 6,
+    "animalCount": 2,
+    "square_row": 16,
+    "square_column": 24,
+    "square_mine": 70,
+    "hexagon_length": 11,
+    "hexagon_mine": 62
   },
   {
-    "라운드": 7,
-    "외계 동물 수": 2,
-    "사각형-가로": 16,
-    "사각형-세로": 28,
-    "사각형-지뢰 개수": 85,
-    "육각형-길이": 12,
-    "육각형-지뢰 개수": 97
+    "round": 7,
+    "animalCount": 2,
+    "square_row": 16,
+    "square_column": 28,
+    "square_mine": 85,
+    "hexagon_length": 12,
+    "hexagon_mine": 97
   },
   {
-    "라운드": 8,
-    "외계 동물 수": 2,
-    "사각형-가로": 16,
-    "사각형-세로": 30,
-    "사각형-지뢰 개수": 99,
-    "육각형-길이": 13,
-    "육각형-지뢰 개수": 98
+    "round": 8,
+    "animalCount": 2,
+    "square_row": 16,
+    "square_column": 30,
+    "square_mine": 99,
+    "hexagon_length": 13,
+    "hexagon_mine": 98
   },
   {
-    "라운드": 9,
-    "외계 동물 수": 3,
-    "사각형-가로": 17,
-    "사각형-세로": 30,
-    "사각형-지뢰 개수": 110,
-    "육각형-길이": 13,
-    "육각형-지뢰 개수": 103
+    "round": 9,
+    "animalCount": 3,
+    "square_row": 17,
+    "square_column": 30,
+    "square_mine": 110,
+    "hexagon_length": 13,
+    "hexagon_mine": 103
   },
   {
-    "라운드": 10,
-    "외계 동물 수": 3,
-    "사각형-가로": 18,
-    "사각형-세로": 30,
-    "사각형-지뢰 개수": 120,
-    "육각형-길이": 14,
-    "육각형-지뢰 개수": 125
+    "round": 10,
+    "animalCount": 3,
+    "square_row": 18,
+    "square_column": 30,
+    "square_mine": 120,
+    "hexagon_length": 14,
+    "hexagon_mine": 125
   }
 ]

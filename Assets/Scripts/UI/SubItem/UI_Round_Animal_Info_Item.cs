@@ -43,6 +43,6 @@ public class UI_Round_Animal_Info_Item : UI_Base
 
         _icon.sprite = Resources.Load<Sprite>(animalData.resouce) as Sprite;
         _name.text = animalData.name;
-        _explanation.text = animalData.explanation;
+        _explanation.text = animalData.explain;
     }
 }

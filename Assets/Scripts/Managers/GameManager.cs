@@ -22,6 +22,7 @@ public class GameManager
     Round _roundData;
 
     MapController _mapController;
+    PlayerController _playerControllr;
 
     public Define.GameMode _gameMode;
     public Define.GameMode GameMode
@@ -39,7 +40,7 @@ public class GameManager
 
         //SceneUI
         Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
-        Managers.UI.ShowSceneUI<UI_Animal>("UI_Animal");
+        Managers.UI.ShowSceneUI<UI_InGame_Animal>("UI_InGame_Animal");
         Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
         Managers.UI.ShowSceneUI<UI_Mine>("UI_Mine");
 
@@ -70,7 +71,7 @@ public class GameManager
 
 
         //Item Setup
-        UI_Animal uiAnimal = Managers.UI.GetUIScene<UI_Animal>("UI_Animal");
+        UI_InGame_Animal uiAnimal = Managers.UI.GetUIScene<UI_InGame_Animal>("UI_InGame_Animal");
         uiAnimal.SetAnimalItemInfo(0, 0);
         uiAnimal.SetAnimalItemInfo(1, 1);
         uiAnimal.SetAnimalItemInfo(2, 2);

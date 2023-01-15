@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_Animal : UI_Scene
+public class UI_InGame_Animal : UI_Scene
 {
     const int MAX_ANIMAL_ITEM = 3;
 
-    UI_Animal_Item[] m_animalItemList = new UI_Animal_Item[MAX_ANIMAL_ITEM];
+    UI_InGame_Animal_Item[] m_animalItemList = new UI_InGame_Animal_Item[MAX_ANIMAL_ITEM];
 
     enum GameObjects
     {
@@ -31,8 +31,8 @@ public class UI_Animal : UI_Scene
 
         for (int i = 0; i < MAX_ANIMAL_ITEM; i++)
         {
-            GameObject item = Managers.UI.MakeSubItem<UI_Animal_Item>(gridPanel.transform).gameObject;
-            m_animalItemList[i] = item.GetOrAddComponent<UI_Animal_Item>();
+            GameObject item = Managers.UI.MakeSubItem<UI_InGame_Animal_Item>(gridPanel.transform).gameObject;
+            m_animalItemList[i] = item.GetOrAddComponent<UI_InGame_Animal_Item>();
         }
     }
 

@@ -9,7 +9,7 @@ using UnityEngine;
 public class Round
 {
 	public int round;
-	public int animal;
+	public int animalCount;
 	public int square_row;
 	public int square_column;
 	public int square_mine;
@@ -40,9 +40,10 @@ public class Animal
 {
     public int index;
     public string name;
-    public int effect;
+    public string explain;
+    public int effect_1;
+    public int effect_2;
     public string resouce;
-    public string explanation;
 }
 
 [Serializable]
@@ -66,22 +67,26 @@ public class AnimalData : ILoader<int, Animal>
 [Serializable]
 public class Spacesuit
 {
+    public int index;
     public string name;
     public int type;
-    public string effect;
+    public string explain;
+    public string penaltyExplain;
+    public int effect;
+    public int penalty;
     public string resouce;
 }
 
 [Serializable]
-public class SpacesuitData : ILoader<string, Spacesuit>
+public class SpacesuitData : ILoader<int, Spacesuit>
 {
     public List<Spacesuit> spacesuits = new List<Spacesuit>();
 
-    public Dictionary<string, Spacesuit> MakeDict()
+    public Dictionary<int, Spacesuit> MakeDict()
     {
-        Dictionary<string, Spacesuit> dict = new Dictionary<string, Spacesuit>();
+        Dictionary<int, Spacesuit> dict = new Dictionary<int, Spacesuit>();
         foreach (Spacesuit spacesuit in spacesuits)
-            dict.Add(spacesuit.name, spacesuit);
+            dict.Add(spacesuit.index, spacesuit);
         return dict;
     }
 }
@@ -92,23 +97,28 @@ public class SpacesuitData : ILoader<string, Spacesuit>
 [Serializable]
 public class RepairTool
 {
+    public int index;
     public string name;
-    public int grade;
+    public int rarely;
+    public string explain;
     public int collect;
+    public int type;
+    public int maxCollect;
+    public int limitCollect;
     public string resouce;
-    public string explanation;
+    
 }
 
 [Serializable]
-public class RepairToolData : ILoader<string, RepairTool>
+public class RepairToolData : ILoader<int, RepairTool>
 {
     public List<RepairTool> repairtools = new List<RepairTool>();
 
-    public Dictionary<string, RepairTool> MakeDict()
+    public Dictionary<int, RepairTool> MakeDict()
     {
-        Dictionary<string, RepairTool> dict = new Dictionary<string, RepairTool>();
+        Dictionary<int, RepairTool> dict = new Dictionary<int, RepairTool>();
         foreach (RepairTool repairtool in repairtools)
-            dict.Add(repairtool.name, repairtool);
+            dict.Add(repairtool.index, repairtool);
         return dict;
     }
 }

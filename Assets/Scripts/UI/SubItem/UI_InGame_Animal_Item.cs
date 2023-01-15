@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Animal_Item : UI_Base
+public class UI_InGame_Animal_Item : UI_Base
 {
     public Image _icon;
 

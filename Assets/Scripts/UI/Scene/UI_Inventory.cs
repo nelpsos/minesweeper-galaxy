@@ -47,8 +47,8 @@ public class UI_Inventory : UI_Scene
 
     public void SetInventoryIcon(int index, int tableIndex)
     {
-        RepairTool repairtool =   Managers.Data.RepairItemDict[tableIndex];
-        m_inventory[index].
+        //RepairTool repairtool =   Managers.Data.RepairItemDict[tableIndex];
+        //m_inventory[index].
     }
 
     

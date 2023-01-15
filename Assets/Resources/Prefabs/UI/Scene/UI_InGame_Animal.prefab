@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1674492141840806516}
   - component: {fileID: 1672162423549838016}
   m_Layer: 5
-  m_Name: UI_Animal
+  m_Name: UI_InGame_Animal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

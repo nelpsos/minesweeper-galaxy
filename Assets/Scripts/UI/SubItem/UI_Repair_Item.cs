@@ -32,11 +32,11 @@ public class UI_Repair_Item : UI_Base
 
     public void SetRepairItemInfo(string name)
     {
-        RepairTool repairToolData = Managers.Data.RepairItemDict[name];
+        //RepairTool repairToolData = Managers.Data.RepairItemDict[name];
 
-        _icon.sprite = Resources.Load<Sprite>(repairToolData.resouce) as Sprite;
-        _name.text = repairToolData.name;
-        _explanation.text = repairToolData.explanation;
-        _collect.text = "";
+        //_icon.sprite = Resources.Load<Sprite>(repairToolData.resouce) as Sprite;
+        //_name.text = repairToolData.name;
+        //_explanation.text = repairToolData.explanation;
+        //_collect.text = "";
     }
 }
