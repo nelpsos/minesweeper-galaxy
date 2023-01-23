@@ -7,7 +7,7 @@ public class UIManager
     int _order = 10;
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    Dictionary<string, UI_Scene> _sceneUIDic = new Dictionary<string, UI_Scene>();
+    UI_Scene _scene = null;
 
     public GameObject Root
     {
@@ -56,9 +56,9 @@ public class UIManager
 
 		GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
 		T sceneUI = Util.GetOrAddComponent<T>(go);
-        _sceneUIDic.Add(name, sceneUI);
+        _scene = sceneUI;
 
-		go.transform.SetParent(Root.transform);
+        go.transform.SetParent(Root.transform);
 
 		return sceneUI;
 	}
@@ -75,6 +75,11 @@ public class UIManager
         go.transform.SetParent(Root.transform);
 
 		return popup;
+    }
+
+    public void CloseSceneUI()
+    {
+        Managers.Resource.Destroy(_scene.gameObject); 
     }
 
     public void ClosePopupUI(UI_Popup popup)
@@ -111,31 +116,13 @@ public class UIManager
     public void Clear()
     {
         CloseAllPopupUI();
-        _sceneUIDic.Clear();
+        CloseSceneUI();
     }
 
-    public T GetUIScene<T>(string name = null) where T : UI_Scene
+    public T GetUIScene<T>() where T : UI_Scene
     {
-        UI_Scene sceneUI = null;
-        if (_sceneUIDic.TryGetValue(name,out sceneUI) == true)
-            return (T)sceneUI;
-
-        return null;
+        return (T)_scene;
     }
 
-    public void HideSceneUI()
-    {
-        foreach (var uiItem in _sceneUIDic)
-        {
-            uiItem.Value.gameObject.SetActive(false);
-        }
-    }
-
-    public void ShowSceneUI()
-    {
-        foreach (var uiItem in _sceneUIDic)
-        {
-            uiItem.Value.gameObject.SetActive(true);
-        }
-    }
+ 
 }

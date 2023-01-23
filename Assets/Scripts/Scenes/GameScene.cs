@@ -10,7 +10,9 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
-        //Dictionary<int, Stat> dict = Managers.Data.StatDict;
+        Managers.UI.ShowSceneUI<UI_Game>("UI_Game");
+
+        Managers.GameManager.ChangeGameMode(Define.GameMode.RoundInfo);
     }
 
     public override void Clear()

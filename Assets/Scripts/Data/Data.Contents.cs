@@ -43,7 +43,7 @@ public class Animal
     public string explain;
     public int effect_1;
     public int effect_2;
-    public string resouce;
+    public string resource;
 }
 
 [Serializable]

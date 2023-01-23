@@ -18,11 +18,16 @@ public class GameManager
     [SerializeField]
     int _round = 1;
 
+    public int Round
+    {
+        get { return _round; }
+    }
+
     [SerializeField]
     Round _roundData;
 
     MapController _mapController;
-    PlayerController _playerControllr;
+    PlayerController _playerControllr = new PlayerController();
 
     public Define.GameMode _gameMode;
     public Define.GameMode GameMode
@@ -38,17 +43,9 @@ public class GameManager
         Managers.Input.KeyAction -= OnKeyDown;
         Managers.Input.KeyAction += OnKeyDown;
 
-        //SceneUI
-        Managers.UI.ShowSceneUI<UI_Inventory>("UI_Inventory");
-        Managers.UI.ShowSceneUI<UI_InGame_Animal>("UI_InGame_Animal");
-        Managers.UI.ShowSceneUI<UI_Life>("UI_Life");
-        Managers.UI.ShowSceneUI<UI_Mine>("UI_Mine");
-
-        Managers.UI.ShowPopupUI<UI_Button>("UI_Button");
 
         GameObject go = Managers.Resource.Instantiate($"Map");
         _mapController = go.GetOrAddComponent<MapController>();
-
     }
 
     public void StageClear()
@@ -67,19 +64,16 @@ public class GameManager
 
 
         //Animal Settup
-        UI_Inventory uiInventory = Managers.UI.GetUIScene<UI_Inventory>("UI_Inventory");
+        UI_Game uiGame = Managers.UI.GetUIScene<UI_Game>();
+        uiGame.SetAnimalItemInfo(0, 0);
+        uiGame.SetAnimalItemInfo(1, 1);
+        uiGame.SetAnimalItemInfo(2, 2);
 
-
-        //Item Setup
-        UI_InGame_Animal uiAnimal = Managers.UI.GetUIScene<UI_InGame_Animal>("UI_InGame_Animal");
-        uiAnimal.SetAnimalItemInfo(0, 0);
-        uiAnimal.SetAnimalItemInfo(1, 1);
-        uiAnimal.SetAnimalItemInfo(2, 2);
+        //Bag Settup
+        uiGame.SetBagItemInfo(0, 0);
 
         // Life Setup
-        UI_Life uiLife = Managers.UI.GetUIScene<UI_Life>("UI_Life");
 
-        Managers.UI.ShowSceneUI();
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -90,7 +84,6 @@ public class GameManager
         {
             case Define.GameMode.RoundInfo:
                 {
-                    //Managers.UI.HideSceneUI();
                     UI_RoundInfo roundInfo = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
                     roundInfo.SetRoundInfo(_round);
                 }
@@ -199,8 +192,6 @@ public class GameManager
         }
 
     }
-
-
     public void OnKeyDown()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -211,11 +202,25 @@ public class GameManager
         if (Input.GetKeyDown(KeyCode.F2))
         {
             UI_RoundInfo info = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
+            info.SetRoundInfo(_round);
         }
 
-        if(Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             UI_RepairItemReward repairItem = Managers.UI.ShowPopupUI<UI_RepairItemReward>("UI_RepairItemReward");
         }
     }
+
+
+    public void AddRepairTool(RepairTool tool)
+    {
+        _playerControllr.AddRepairTool(tool);
+    }
+
+    public void AddSpacesuit(Spacesuit spacesuit)
+    {
+        _playerControllr.AddSpacesuit(spacesuit);
+    }
+
+
 }
