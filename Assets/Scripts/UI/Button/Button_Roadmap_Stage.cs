@@ -14,7 +14,6 @@ public class Button_Roadmap_Stage : MonoBehaviour, IPointerClickHandler
     {
         string number = gameObject.name.Substring(gameObject.name.Length-1, 1);
         level = int.Parse(number);
-
     }
 
     // Update is called once per frame
@@ -25,9 +24,16 @@ public class Button_Roadmap_Stage : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {  
-        if(level == Managers.GameManager.Round)
+        if(level <= Managers.GameManager.MaxRound)
         {
-            Managers.Scene.LoadScene(Define.Scene.Game);
+            Managers.UI.ClosePopupUI();
+            Managers.GameManager.SetRound(level);
+            Managers.GameManager.ChangeGameMode(Define.GameMode.RoundInfo);
         }
+    }
+
+    public void UnLockImage()
+    {
+        _lockImage.gameObject.SetActive(false);
     }
 }

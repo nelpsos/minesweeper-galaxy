@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,17 +10,36 @@ public class GameManager
 
     [SerializeField]
     int _mineCount = 0;  //남은 지뢰 개수
+    public int MineCount
+    {
+        get { return _mineCount; }
+    }
 
     [SerializeField]
     int _life = 3;    // 목숨
+    public int Life
+    {
+        get { return _life; }
+    }
 
     [SerializeField]
     int _round = 1;
-
     public int Round
     {
         get { return _round; }
     }
+
+    [SerializeField]
+    int _maxRound = 1;
+    public int MaxRound
+    {
+        get { return _maxRound; }
+    }
+
+    [SerializeField]
+    int _opendMine = 0; //
+
+
 
     [SerializeField]
     Round _roundData;
@@ -38,14 +56,13 @@ public class GameManager
 
     public Action<Define.GameMode> GameModeAction = null;
 
+
+    UI_Game _uiGame = null;
+
     public void Init()
     {
-        Managers.Input.KeyAction -= OnKeyDown;
-        Managers.Input.KeyAction += OnKeyDown;
-
-
-        GameObject go = Managers.Resource.Instantiate($"Map");
-        _mapController = go.GetOrAddComponent<MapController>();
+        //Managers.Input.KeyAction -= OnKeyDown;
+        //Managers.Input.KeyAction += OnKeyDown;
     }
 
     public void StageClear()
@@ -56,23 +73,33 @@ public class GameManager
 
     private void InitGame()
     {
+  
         _roundData = Managers.Data.RoundDict[_round];
         _mineCount = _roundData.square_mine;
 
+        if (_mapController == null)
+        {
+            GameObject go = Managers.Resource.Instantiate($"Map"); 
+            _mapController = go.GetOrAddComponent<MapController>();
+        }
+        
         //Mine 셋업
         _mapController.Init(_roundData.square_mine, _roundData.square_row, _roundData.square_column);
 
-
         //Animal Settup
-        UI_Game uiGame = Managers.UI.GetUIScene<UI_Game>();
-        uiGame.SetAnimalItemInfo(0, 0);
-        uiGame.SetAnimalItemInfo(1, 1);
-        uiGame.SetAnimalItemInfo(2, 2);
+        _uiGame = Managers.UI.GetUIScene<UI_Game>();
+        _uiGame.SetAnimalItemInfo(0, 0);
+        _uiGame.SetAnimalItemInfo(1, 1);
+        _uiGame.SetAnimalItemInfo(2, 2);
 
         //Bag Settup
-        uiGame.SetBagItemInfo(0, 0);
+        _uiGame.SetBagItemInfo(0, 0);
 
         // Life Setup
+        _uiGame.SetLife(_life);
+
+        //Mine Setup
+        _uiGame.SetMine(_mineCount);
 
     }
 
@@ -82,10 +109,17 @@ public class GameManager
 
         switch (gameMode)
         {
+            case Define.GameMode.Roadmap:
+                {
+                    UI_Roadmap roadmap = Managers.UI.ShowPopupUI<UI_Roadmap>("UI_Roadmap");
+                    Managers.UI.SetActivateSceneUI(false);
+                }
+                break;
             case Define.GameMode.RoundInfo:
                 {
                     UI_RoundInfo roundInfo = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
-                    roundInfo.SetRoundInfo(_round);
+                    Managers.UI.SetActivateSceneUI(true);
+
                 }
                 break;
             case Define.GameMode.Ready:
@@ -104,7 +138,13 @@ public class GameManager
             case Define.GameMode.GameOver:
                 break;
             case Define.GameMode.Clear:
-                _mapController.Clear();
+                {
+                    _mapController.Clear();
+
+                    UI_RoundClear roundClear = Managers.UI.ShowPopupUI<UI_RoundClear>("UI_RoundClear");
+
+                    OnNextRound();
+                }
                 break;
             default:
                 break;
@@ -126,91 +166,75 @@ public class GameManager
         //}
     }
 
+    public void OnNextRound()
+    {
+        if(_maxRound == _round)
+            _maxRound++;
+    }
+
     public void OnClickMine()
     {
         _life--;
+        _uiGame.SetLife(_life);
 
-        //_uiScene.SetLifeText(_life);
+        _opendMine++;
 
-        if(_life<=0)
+        _mineCount--;
+        _uiGame.SetMine(_mineCount);
+
+        if (_life<=0)
         {
             ChangeGameMode(Define.GameMode.GameOver);
         }
+
+        if (IsGameClear())
+        {
+            ChangeGameMode(Define.GameMode.Clear);
+        }
     }
 
-    public void OnFindMine()
+    public void OnCheckMine()
     {
         _mineCount--;
+        _uiGame.SetMine(_mineCount);
 
-        if(_mineCount <= 0 )
+        if(IsGameClear())
         {
-            int findMine = _mapController.GetCorrectFind();
-            if(findMine == _roundData.square_mine)
-            {
-                ChangeGameMode(Define.GameMode.Clear);
-            }
+            ChangeGameMode(Define.GameMode.Clear);
         }
     } 
 
-    public void OnCancelFindMine()
+    public void OnUnCheckMine()
     {
         _mineCount++;
+        _uiGame.SetMine(_mineCount);
     }
 
-    public void OnNextStage()
+    public bool IsGameClear()
     {
-        _round++;
+        if (_mineCount <= 0)
+        {
+            int findMine = _mapController.GetCorrectFind();
+            if (findMine + _opendMine == _roundData.square_mine)
+            {
+                
+                return true;
+            }
+        }
 
+        return false;
+    }
+
+ 
+    public void SetRound(int round)
+    {
+        _round = round;
     }
 
     public Round GetRoundData()
     {
         return _roundData;
     }
-
-    public void OnReduceLife(int reduceValue)
-    {
-        _life -= reduceValue;
-
-        if(_life <= 0 )
-        {
-            _life = 0;
-            ChangeGameMode(Define.GameMode.GameOver);
-        }
-    }
-
-    public void OnSetFlag(bool flag)
-    {
-        if (flag)
-            _mineCount--;
-        else
-            _mineCount++;
-        
-        if(_mineCount <= 0)
-        {
-            ChangeGameMode(Define.GameMode.Clear);
-        }
-
-    }
-    public void OnKeyDown()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Managers.UI.CloseAllPopupUI();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            UI_RoundInfo info = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
-            info.SetRoundInfo(_round);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            UI_RepairItemReward repairItem = Managers.UI.ShowPopupUI<UI_RepairItemReward>("UI_RepairItemReward");
-        }
-    }
-
 
     public void AddRepairTool(RepairTool tool)
     {
@@ -221,6 +245,4 @@ public class GameManager
     {
         _playerControllr.AddSpacesuit(spacesuit);
     }
-
-
 }

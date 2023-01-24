@@ -8,7 +8,8 @@ public class Define
     {
         Unknown,
         Title,
-        Roadmap,
+        SelectAnimal,
+        SelectSpaceSuit,
         Game,
     }
 
@@ -55,6 +56,7 @@ public class Define
 
     public enum GameMode
     {
+        Roadmap,
         RoundInfo,
         Ready,
         Play,
@@ -68,6 +70,9 @@ public class Define
     public static int[] xIndex = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
     public static int[] yIndex = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
 
-    public static int MAX_LIFE = 10;
+    public const int MAX_LIFE = 5;
+    public const int MAX_ROUND_INFO = 3;
+    public const int MAX_ANIMAL = 3;
+    public const int MAX_BAG = 4;
 
 }

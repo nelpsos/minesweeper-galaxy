@@ -9,10 +9,7 @@ using UnityEngine.UI;
 
 public class UI_RoundInfo : UI_Popup
 {
-    const int MAX_ROUND_INFO = 3;
-
-    [SerializeField]
-    private int _round = 0;
+    public TextMeshProUGUI _title;
 
     enum GameObjects
     {
@@ -39,16 +36,14 @@ public class UI_RoundInfo : UI_Popup
         foreach (Transform child in gridPanel.transform)
             Managers.Resource.Destroy(child.gameObject);
         
-        for (int i = 0; i < MAX_ROUND_INFO; i++)
+        for (int i = 0; i < Define.MAX_ROUND_INFO; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_RoundInfo_Item>(gridPanel.transform).gameObject;
             UI_RoundInfo_Item uiItem = item.GetOrAddComponent<UI_RoundInfo_Item>();
             uiItem.SetRoundAnimalInfo(i);
         }
+
+        _title.text = $"Round {Managers.GameManager.Round}";
     }
 
-    public void SetRoundInfo(int round)
-    {
-        _round = round;
-    }
 }

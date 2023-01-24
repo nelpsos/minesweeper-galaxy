@@ -22,6 +22,6 @@ public class Button_GameStart : MonoBehaviour
 
     public void OnButtonClick()
     {
-        Managers.Scene.LoadScene(Define.Scene.Roadmap);
+        Managers.Scene.LoadScene(Define.Scene.Game);
     }
 }

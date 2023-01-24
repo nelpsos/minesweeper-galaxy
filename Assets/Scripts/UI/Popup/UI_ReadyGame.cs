@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class UI_ReadyGame : UI_Popup
 {
-    TextMeshProUGUI _text;
+    public Image _go;
+    public Image _ready;
 
     private void Start()
     {
@@ -20,24 +21,26 @@ public class UI_ReadyGame : UI_Popup
     {
         base.Init();
 
-        _text = GetComponentInChildren<TextMeshProUGUI>();
-
-        StartCoroutine("GameStartAfterSecond", 3);
+        StartCoroutine("GameStartAfterSecond", 2f);
     }
 
     IEnumerator GameStartAfterSecond(float seconds)
     {
-        for (float i = seconds; i > 0; i--)
-        {
-            _text.text = i.ToString();
-            yield return new WaitForSeconds(1);
-            _text.text = "Start";
-        }
-        yield return new WaitForSeconds(0.5f);
+        _ready.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(seconds);
+
+        _ready.gameObject.SetActive(false);
+        _go.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
 
         Managers.UI.ClosePopupUI(this);
 
         Managers.GameManager.ChangeGameMode(Define.GameMode.Play);
+
+        _ready.gameObject.SetActive(false);
+        _go.gameObject.SetActive(false);
     }
 
 }

@@ -10,9 +10,10 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
+        //UI
         Managers.UI.ShowSceneUI<UI_Game>("UI_Game");
 
-        Managers.GameManager.ChangeGameMode(Define.GameMode.RoundInfo);
+        Managers.GameManager.ChangeGameMode(Define.GameMode.Roadmap);
     }
 
     public override void Clear()

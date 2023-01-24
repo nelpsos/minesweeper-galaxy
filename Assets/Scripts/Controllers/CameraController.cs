@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
             case Define.GameMode.Ready:
                 Round roundData = Managers.GameManager.GetRoundData();
                 Camera.main.orthographicSize = roundData.square_column;
+                Camera.main.transform.position = new Vector3(0, roundData.square_column / 4, -10);
                 break;
             case Define.GameMode.Play:
                 break;

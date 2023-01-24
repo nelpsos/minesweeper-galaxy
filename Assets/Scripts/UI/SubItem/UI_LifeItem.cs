@@ -8,10 +8,6 @@ public class UI_LifeItem : UI_Base
     public Image _icon;
     public Image _bg;
 
-    enum GameObjects
-    {
-        Life_Item_Icon,
-    }
 
     void Start()
     {
@@ -20,8 +16,6 @@ public class UI_LifeItem : UI_Base
 
     public override void Init()
     {
-        Bind<GameObject>(typeof(GameObjects));
-
     }
 
     public void SetActivate(bool activate)

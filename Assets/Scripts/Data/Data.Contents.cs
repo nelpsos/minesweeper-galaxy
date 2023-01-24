@@ -74,7 +74,7 @@ public class Spacesuit
     public string penaltyExplain;
     public int effect;
     public int penalty;
-    public string resouce;
+    public string resource;
 }
 
 [Serializable]
@@ -105,7 +105,7 @@ public class RepairTool
     public int type;
     public int maxCollect;
     public int limitCollect;
-    public string resouce;
+    public string resource;
     
 }
 

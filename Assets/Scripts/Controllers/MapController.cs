@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class MapController : MonoBehaviour
 {
     private CellController[,] _cellController;
     private int _row;
     private int _col;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +42,7 @@ public class MapController : MonoBehaviour
                     _cellController[y, x] = gameObject.GetComponent<CellController>();
                     gameObject.name = "Cell" + "_" + x.ToString() + "_" + y.ToString();
                     gameObject.transform.position = new Vector3(x - col / 2,y - row / 2, 0);
-
+                    _cellController[y, x].Init(x, y, this);
                 }
             }
         }
@@ -117,7 +120,7 @@ public class MapController : MonoBehaviour
                 break;
             case Define.GameMode.Clear:
                 {
-                    Managers.UI.ShowPopupUI<UI_ClearGame>("UI_ClearGame");
+                    //Managers.UI.ShowPopupUI<UI_RoundClear>("UI_RoundClear");
                 }
                 break;
             default:
@@ -139,5 +142,33 @@ public class MapController : MonoBehaviour
         }
 
         return findMine;
+    }
+
+    public void recursionSerach(int x, int y)
+    {
+        for (int i = 0; i < Define.xIndex.Length; ++i)
+        {
+            int xx = x + Define.xIndex[i];
+            int yy = y + Define.yIndex[i];
+
+            if (xx < 0 || xx >= _row)
+                continue;
+
+            if (yy < 0 || yy >= _col)
+                continue;
+
+            if (xx == 0 && yy == 0)
+                continue;
+
+            // 지뢰가 없는 경우
+            // 플레그인 경우
+            CellController cell = _cellController[yy, xx];
+            if (cell.CellState == Define.CellState.HIDDEN
+                && cell.HaveMine == false
+                && cell .IsFlag == false)
+            {
+                _cellController[yy, xx].OnMouseLClick();
+            }
+        }
     }
 }

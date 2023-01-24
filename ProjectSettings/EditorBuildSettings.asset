@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 7af75666f35e5f34b92083ea87f998fe
   - enabled: 1
-    path: Assets/Scenes/Roadmap.unity
+    path: Assets/Scenes/SelectAnimal.unity
     guid: 135dd95c4a763ee4fa5472f7b0f5c573
+  - enabled: 1
+    path: Assets/Scenes/SelectSpacesuit.unity
+    guid: f22d24f1f4c49264ebdcb09e2603b2fb
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 2cda990e2423bbf4892e6590ba056729
