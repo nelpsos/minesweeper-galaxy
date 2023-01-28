@@ -35,7 +35,6 @@ public class CellController : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    private Sprite _default;
     private Sprite _open;
 
     public void Init(int x, int y, MapController map)
@@ -50,7 +49,6 @@ public class CellController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        _default = Resources.Load<Sprite>("Texture/Game/Icon-Chicken") as Sprite;
         _open = Resources.Load<Sprite>("Texture/Game/cell_normal") as Sprite; ;
 }
 
@@ -96,6 +94,29 @@ public class CellController : MonoBehaviour
             && AdjacentMineCount == 0)
         {
             _map.recursionSerach(_x, _y);
+        }
+    }
+
+    public void OpenCell()
+    {
+        //오픈 상태로 변경
+        CellState = Define.CellState.OPEN;
+        {
+            _spriteRenderer.sprite = _open;
+        }
+
+        //정상적 오픈
+        string[] names = Enum.GetNames(typeof(Define.MineCount));
+
+        //모든 자식노드 비활성화
+        foreach (UnityEngine.Transform child in this.transform)
+            child.gameObject.SetActive(false);
+
+        //주변에 마인이 있는경우에만 
+        if (AdjacentMineCount > 0)
+        {
+            UnityEngine.Transform childTransform = this.transform.Find(names[AdjacentMineCount]);
+            childTransform.gameObject.SetActive(true);
         }
     }
    

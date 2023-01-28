@@ -21,24 +21,24 @@ public class CameraController : MonoBehaviour
 
     private void InitCameraResolution()
     {
-        Camera camera = GetComponent<Camera>();
-        Rect rect = camera.rect;
+        //Camera camera = GetComponent<Camera>();
+        //Rect rect = camera.rect;
 
-        float scaleHeight = ((float)Screen.width / Screen.height) / ((float)9 / 16);    //(가로 /세로)
-        float scaleWidth = 1f / scaleHeight;
+        //float scaleHeight = ((float)Screen.width / Screen.height) / ((float)9 / 16);    //(가로 /세로)
+        //float scaleWidth = 1f / scaleHeight;
 
-        if (scaleHeight < 1f)
-        {
-            rect.height = scaleHeight;
-            rect.y = (1f - scaleHeight) * 2f;
-        }
-        else
-        {
-            rect.width = scaleWidth;
-            rect.x = (1f - scaleWidth) * 2f;
-        }
+        //if (scaleHeight < 1f)
+        //{
+        //    rect.height = scaleHeight;
+        //    rect.y = (1f - scaleHeight) * 2f;
+        //}
+        //else
+        //{
+        //    rect.width = scaleWidth;
+        //    rect.x = (1f - scaleWidth) * 2f;
+        //}
 
-        camera.rect = rect;
+        //camera.rect = rect;
     }
     
 
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         {
             case Define.GameMode.Ready:
                 Round roundData = Managers.GameManager.GetRoundData();
-                Camera.main.orthographicSize = roundData.square_column;
+                Camera.main.orthographicSize = roundData.square_column + 1;
                 Camera.main.transform.position = new Vector3(0, roundData.square_column / 4, -10);
                 break;
             case Define.GameMode.Play:

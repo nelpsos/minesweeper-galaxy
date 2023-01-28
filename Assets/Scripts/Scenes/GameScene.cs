@@ -11,7 +11,7 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
 
         //UI
-        Managers.UI.ShowSceneUI<UI_Game>("UI_Game");
+        UI_Game uiGame = Managers.UI.ShowSceneUI<UI_Game>("UI_Game");
 
         Managers.GameManager.ChangeGameMode(Define.GameMode.Roadmap);
     }
@@ -20,4 +20,6 @@ public class GameScene : BaseScene
     {
         
     }
+
+
 }

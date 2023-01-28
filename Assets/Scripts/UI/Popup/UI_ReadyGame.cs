@@ -41,6 +41,8 @@ public class UI_ReadyGame : UI_Popup
 
         _ready.gameObject.SetActive(false);
         _go.gameObject.SetActive(false);
+
+        
     }
 
 }

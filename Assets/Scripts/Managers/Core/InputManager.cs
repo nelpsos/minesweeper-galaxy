@@ -11,6 +11,9 @@ public class InputManager
     public bool _pressed = false;
     public bool _RPress = false;
 
+    private float _pressedTime = 0;
+    public float _interval = 0.5f;
+
     public void OnUpdate()
     {
         //if (EventSystem.current.IsPointerOverGameObject())
@@ -19,48 +22,37 @@ public class InputManager
         if (Input.anyKey && KeyAction != null)
             KeyAction.Invoke();
 
-        //if (MouseAction != null)
-        //{
-            
-            if (Input.GetMouseButton(0))
+        //우버튼 클릭
+        if (Input.GetMouseButtonDown(0))
+        {
+            _pressed = true;
+            _pressedTime = Time.time;
+
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            //1초 이상 눌른경우는 우클릭 처리
+            if (Time.time - _pressedTime < _interval)
             {
-                //좌 버튼 다운
-                //MouseAction.Invoke(Define.MouseEvent.Press);
-                _pressed = true;
-            }
-            else if(Input.GetMouseButton(1))
-            {
-                //우버튼 클릭
-                //MouseAction.Invoke(Define.MouseEvent.RPress);
-                _RPress = true;
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Ray2D ray = new Ray2D(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector3.zero);
+                RaycastHit2D rayHit = Physics2D.Raycast(ray.origin, ray.direction);
+
+                if (rayHit.collider != null)
+                {
+                    if (rayHit.collider.gameObject.tag.Equals("Cell"))
+                    {
+                        CellController controller = rayHit.collider.gameObject.GetComponent<CellController>();
+                        if (controller != null)
+                        {
+                            controller.OnMouseLClick();
+                        }
+                    }
+                }
             }
             else
             {
-                if (_pressed)
-                {
-                    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Ray2D ray = new Ray2D(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector3.zero);
-                    RaycastHit2D rayHit = Physics2D.Raycast(ray.origin, ray.direction);
-
-                    if(rayHit.collider !=null)
-                    {
-                        if(rayHit.collider.gameObject.tag.Equals("Cell"))
-                        {
-                            CellController controller = rayHit.collider.gameObject.GetComponent<CellController>();
-                            if(controller != null)
-                            {
-                                controller.OnMouseLClick();
-                            }
-                        }
-                    }
-
-                   // MouseAction.Invoke(Define.MouseEvent.Click);
-                }
-                 _pressed = false;
-
-                if(_RPress)
-                {
-                // MouseAction.Invoke(Define.MouseEvent.RClick);
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Ray2D ray = new Ray2D(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector3.zero);
                 RaycastHit2D rayHit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -77,11 +69,10 @@ public class InputManager
                     }
                 }
             }
-                    
-                _RPress = false;
-            }
+
+            _pressedTime = 0f;
         }
-    //}
+    }
 
     public void Clear()
     {

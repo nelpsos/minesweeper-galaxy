@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class UI_Game : UI_Scene
 {
-    Canvas _canvas;
     enum GameObjects
     {
         Grid_Animal,
@@ -42,9 +41,9 @@ public class UI_Game : UI_Scene
 
         InitMine();
 
-        _canvas = GetComponent<Canvas>();
-        _canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        _canvas.worldCamera = Camera.main;
+        //_canvas = GetComponent<Canvas>();
+        //_canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        //_canvas.worldCamera = Camera.main;
     }
 
     #region Bag

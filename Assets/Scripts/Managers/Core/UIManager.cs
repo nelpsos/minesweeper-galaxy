@@ -124,9 +124,5 @@ public class UIManager
         return (T)_scene;
     }
 
-    public void SetActivateSceneUI(bool activate)
-    {
-        _scene.gameObject.SetActive(activate);
-    }
  
 }

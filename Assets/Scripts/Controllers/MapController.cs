@@ -120,7 +120,6 @@ public class MapController : MonoBehaviour
                 break;
             case Define.GameMode.Clear:
                 {
-                    //Managers.UI.ShowPopupUI<UI_RoundClear>("UI_RoundClear");
                 }
                 break;
             default:
@@ -157,7 +156,7 @@ public class MapController : MonoBehaviour
             if (yy < 0 || yy >= _col)
                 continue;
 
-            if (xx == 0 && yy == 0)
+            if (xx == x && yy == y)
                 continue;
 
             // 지뢰가 없는 경우
@@ -170,5 +169,15 @@ public class MapController : MonoBehaviour
                 _cellController[yy, xx].OnMouseLClick();
             }
         }
+    }
+
+    public bool OpenCell(int x, int y)
+    {
+        if (_cellController[y, x].HaveMine)
+            return false;
+
+        _cellController[y, x].OpenCell();
+
+        return true;
     }
 }

@@ -112,25 +112,30 @@ public class GameManager
             case Define.GameMode.Roadmap:
                 {
                     UI_Roadmap roadmap = Managers.UI.ShowPopupUI<UI_Roadmap>("UI_Roadmap");
-                    Managers.UI.SetActivateSceneUI(false);
                 }
                 break;
             case Define.GameMode.RoundInfo:
                 {
                     UI_RoundInfo roundInfo = Managers.UI.ShowPopupUI<UI_RoundInfo>("UI_RoundInfo");
-                    Managers.UI.SetActivateSceneUI(true);
-
                 }
                 break;
             case Define.GameMode.Ready:
                 {
                     InitGame();
+
                     Managers.UI.ShowPopupUI<UI_ReadyGame>("UI_ReadyGame");
                 }
                 break;
             case Define.GameMode.Play:
                 {
-                    
+                    int x = UnityEngine.Random.Range(0, _roundData.square_row);
+                    int y = UnityEngine.Random.Range(0, _roundData.square_column);
+
+                    while (_mapController.OpenCell(x, y) == false)
+                    {
+                        x = UnityEngine.Random.Range(0, _roundData.square_row);
+                        y = UnityEngine.Random.Range(0, _roundData.square_column);
+                    }
                 }
                 break;
             case Define.GameMode.Pause:

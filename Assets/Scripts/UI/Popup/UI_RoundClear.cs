@@ -32,7 +32,6 @@ public class UI_RoundClear : UI_Popup
         {
             Managers.UI.ClosePopupUI(this);
             Managers.GameManager.ChangeGameMode(Define.GameMode.Roadmap);
-            Managers.UI.SetActivateSceneUI(false);
         });
 
         //Repair Item
