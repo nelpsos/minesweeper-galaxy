@@ -1,0 +1,94 @@
+{
+  "spacesuits": [
+    {
+      "index": 0,
+      "name": "티타늄 우주복",
+      "type": 0,
+      "explain": "최대 생명 +2",
+      "penaltyExplain": "",
+      "effect": 2,
+      "penalty": 0,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 1,
+      "name": "형상기억합금 우주복",
+      "type": 0,
+      "explain": "매 라운드 종료 시 생명을 1 회복합니다.",
+      "penaltyExplain": "",
+      "effect": 1,
+      "penalty": 0,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 2,
+      "name": "돋보기 달린 우주복",
+      "type": 0,
+      "explain": "매 라운드 시작 시 빈 타일을 추가로 1개 밝히고 시작합니다.",
+      "penaltyExplain": "",
+      "effect": 1,
+      "penalty": 0,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 3,
+      "name": "망원경 달린 우주복",
+      "type": 0,
+      "explain": "매 라운드 시작 시 4 이상인 타일을 전부 밝히고 시작합니다.",
+      "penaltyExplain": "",
+      "effect": 4,
+      "penalty": 0,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 4,
+      "name": "가제트 만능 우주복",
+      "type": 0,
+      "explain": "출발 전에, 일반 수리 도구 보상을 3번 획득합니다.",
+      "penaltyExplain": "",
+      "effect": 3,
+      "penalty": 0,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 5,
+      "name": "팔 두 개 더 달린 우주복",
+      "type": 1,
+      "explain": "매 라운드 종료 시 사과를 1개 얻습니다.",
+      "penaltyExplain": "매 라운드 시작 시 사과를 1개 잃습니다.",
+      "effect": 1,
+      "penalty": 1,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 6,
+      "name": "멍멍이 로봇 사출 우주복",
+      "type": 1,
+      "explain": "직접 빈 타일을 탐색할 때마다 주변 무작위 지뢰 1개에 깃발을 꽂습니다.",
+      "penaltyExplain": "최대 생명 -1",
+      "effect": 1,
+      "penalty": 1,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 7,
+      "name": "턱수염 로봇 사출 우주복",
+      "type": 1,
+      "explain": "매 라운드 종료 시마다 수리 도구 보상을 추가로 1번 더 획득합니다.",
+      "penaltyExplain": "최대 생명 -2",
+      "effect": 1,
+      "penalty": 2,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    },
+    {
+      "index": 8,
+      "name": "양자 우주복",
+      "type": 1,
+      "explain": "패널티가 없는 우주복을 무작위로 2개 획득합니다.",
+      "penaltyExplain": "최대 생명 -2",
+      "effect": 2,
+      "penalty": 2,
+      "resource": "Texture/SpaecSuit/icon_temp"
+    }
+  ]
+}

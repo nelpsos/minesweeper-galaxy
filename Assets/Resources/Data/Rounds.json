@@ -1,0 +1,94 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "animalCount": 0,
+      "square_row": 5,
+      "square_column": 5,
+      "square_mine": 3,
+      "hexagon_length": 6,
+      "hexagon_mine": 12
+    },
+    {
+      "round": 2,
+      "animalCount": 0,
+      "square_row": 13,
+      "square_column": 13,
+      "square_mine": 20,
+      "hexagon_length": 7,
+      "hexagon_mine": 19
+    },
+    {
+      "round": 3,
+      "animalCount": 1,
+      "square_row": 15,
+      "square_column": 15,
+      "square_mine": 30,
+      "hexagon_length": 8,
+      "hexagon_mine": 27
+    },
+    {
+      "round": 4,
+      "animalCount": 1,
+      "square_row": 16,
+      "square_column": 16,
+      "square_mine": 40,
+      "hexagon_length": 9,
+      "hexagon_mine": 36
+    },
+    {
+      "round": 5,
+      "animalCount": 1,
+      "square_row": 16,
+      "square_column": 20,
+      "square_mine": 55,
+      "hexagon_length": 10,
+      "hexagon_mine": 48
+    },
+    {
+      "round": 6,
+      "animalCount": 2,
+      "square_row": 16,
+      "square_column": 24,
+      "square_mine": 70,
+      "hexagon_length": 11,
+      "hexagon_mine": 62
+    },
+    {
+      "round": 7,
+      "animalCount": 2,
+      "square_row": 16,
+      "square_column": 28,
+      "square_mine": 85,
+      "hexagon_length": 12,
+      "hexagon_mine": 97
+    },
+    {
+      "round": 8,
+      "animalCount": 2,
+      "square_row": 16,
+      "square_column": 30,
+      "square_mine": 99,
+      "hexagon_length": 13,
+      "hexagon_mine": 98
+    },
+    {
+      "round": 9,
+      "animalCount": 3,
+      "square_row": 17,
+      "square_column": 30,
+      "square_mine": 110,
+      "hexagon_length": 13,
+      "hexagon_mine": 103
+    },
+    {
+      "round": 10,
+      "animalCount": 3,
+      "square_row": 18,
+      "square_column": 30,
+      "square_mine": 120,
+      "hexagon_length": 14,
+      "hexagon_mine": 125
+    }
+  ]
+}

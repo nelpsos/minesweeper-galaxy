@@ -9,10 +9,11 @@ using UnityEngine.UI;
 
 public class UI_RoundInfo : UI_Popup
 {
-    const int MAX_INFO = 3;
+    public TextMeshProUGUI _title;
 
     enum GameObjects
     {
+        UI_RoundInfo,
         Grid_Animal_Info
     }
 
@@ -23,27 +24,26 @@ public class UI_RoundInfo : UI_Popup
 
     public override void Init()
     {
-        base.Init();
-
         Bind<GameObject>(typeof(GameObjects));
+
+        Get<GameObject>((int)GameObjects.UI_RoundInfo).BindEvent((PointerEventData) =>
+        {
+            Managers.UI.ClosePopupUI(this);
+            Managers.GameManager.ChangeGameMode(Define.GameMode.Ready);
+        });
 
         GameObject gridPanel = Get<GameObject>((int)GameObjects.Grid_Animal_Info);
         foreach (Transform child in gridPanel.transform)
             Managers.Resource.Destroy(child.gameObject);
-
-        // 실제 인벤토리 정보를 참고해서
-        for (int i = 0; i < MAX_INFO; i++)
+        
+        for (int i = 0; i < Define.MAX_ROUND_INFO; i++)
         {
-            GameObject item = Managers.UI.MakeSubItem<UI_Animal_Info_Item>(gridPanel.transform).gameObject;
-            UI_Animal_Info_Item uiItem = item.GetOrAddComponent<UI_Animal_Info_Item>();
-            uiItem.SetInfo(i);
+            GameObject item = Managers.UI.MakeSubItem<UI_RoundInfo_Item>(gridPanel.transform).gameObject;
+            UI_RoundInfo_Item uiItem = item.GetOrAddComponent<UI_RoundInfo_Item>();
+            uiItem.SetRoundAnimalInfo(i);
         }
 
-    }
-
-    public void SetAnimalData()
-    {
-
+        _title.text = $"Round {Managers.GameManager.Round}";
     }
 
 }

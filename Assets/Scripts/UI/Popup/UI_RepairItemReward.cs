@@ -38,7 +38,7 @@ public class UI_RepairItemReward : UI_Popup
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Repair_Item>(gridPanel.transform).gameObject;
             UI_Repair_Item uiItem = item.GetOrAddComponent<UI_Repair_Item>();
-            uiItem.SetRepairItemInfo(i);
+            uiItem.SetRepairItemInfo("생명 그릇 조각");
         }
 
         //
@@ -48,8 +48,8 @@ public class UI_RepairItemReward : UI_Popup
 
         for (int i = 0; i < Define.MAX_LIFE; i++)
         {
-            GameObject item = Managers.UI.MakeSubItem<UI_Life_Item>(gridPanel.transform).gameObject;
-            UI_Life_Item uiItem = item.GetOrAddComponent<UI_Life_Item>();
+            GameObject item = Managers.UI.MakeSubItem<UI_LifeItem>(gridPanel.transform).gameObject;
+            UI_LifeItem uiItem = item.GetOrAddComponent<UI_LifeItem>();
         }
     }
 

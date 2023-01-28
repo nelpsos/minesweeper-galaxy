@@ -30,13 +30,13 @@ public class UI_Repair_Item : UI_Base
 
     }
 
-    public void SetRepairItemInfo(int index)
+    public void SetRepairItemInfo(string name)
     {
-        RepairItem repairItemData = Managers.Data.RepairItemDict[index];
+        //RepairTool repairToolData = Managers.Data.RepairItemDict[name];
 
-        _icon.sprite = Resources.Load<Sprite>(repairItemData.resouce) as Sprite;
-        _name.text = repairItemData.name;
-        _explanation.text = repairItemData.explanation;
-        _collect.text = "";
+        //_icon.sprite = Resources.Load<Sprite>(repairToolData.resouce) as Sprite;
+        //_name.text = repairToolData.name;
+        //_explanation.text = repairToolData.explanation;
+        //_collect.text = "";
     }
 }

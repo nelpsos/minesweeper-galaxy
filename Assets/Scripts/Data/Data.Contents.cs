@@ -3,28 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#region Stage
+#region Round
 
 [Serializable]
-public class Stage
+public class Round
 {
-	public int level;
-	public int monster;
-	public int col;
-	public int row;
-	public int mine;
+	public int round;
+	public int animalCount;
+	public int square_row;
+	public int square_column;
+	public int square_mine;
+    public int hexagon_length;
+    public int hexagon_mine;
 }
 
 [Serializable]
-public class StageData : ILoader<int, Stage>
+public class RoundData : ILoader<int, Round>
 {
-	public List<Stage> stages = new List<Stage>();
+	public List<Round> rounds = new List<Round>();
 
-	public Dictionary<int, Stage> MakeDict()
+	public Dictionary<int, Round> MakeDict()
 	{
-		Dictionary<int, Stage> dict = new Dictionary<int, Stage>();
-		foreach (Stage stage in stages)
-			dict.Add(stage.level, stage);
+		Dictionary<int, Round> dict = new Dictionary<int, Round>();
+		foreach (Round round in rounds)
+			dict.Add(round.round, round);
 		return dict;
 	}
 }
@@ -38,9 +40,10 @@ public class Animal
 {
     public int index;
     public string name;
-    public int effect;
-    public string resouce;
-    public string explanation;
+    public string explain;
+    public int effect_1;
+    public int effect_2;
+    public string resource;
 }
 
 [Serializable]
@@ -59,31 +62,64 @@ public class AnimalData : ILoader<int, Animal>
 
 #endregion
 
-#region RepairItem
+#region Spacesuit
 
 [Serializable]
-public class RepairItem
+public class Spacesuit
 {
     public int index;
     public string name;
-    public int grade;
-    public int collect;
-    public string resouce;
-    public string explanation;
+    public int type;
+    public string explain;
+    public string penaltyExplain;
+    public int effect;
+    public int penalty;
+    public string resource;
 }
 
 [Serializable]
-public class RepairItemData : ILoader<int, RepairItem>
+public class SpacesuitData : ILoader<int, Spacesuit>
 {
-    public List<RepairItem> repairItems = new List<RepairItem>();
+    public List<Spacesuit> spacesuits = new List<Spacesuit>();
 
-    public Dictionary<int, RepairItem> MakeDict()
+    public Dictionary<int, Spacesuit> MakeDict()
     {
-        Dictionary<int, RepairItem> dict = new Dictionary<int, RepairItem>();
-        foreach (RepairItem repairItem in repairItems)
-            dict.Add(repairItem.index, repairItem);
+        Dictionary<int, Spacesuit> dict = new Dictionary<int, Spacesuit>();
+        foreach (Spacesuit spacesuit in spacesuits)
+            dict.Add(spacesuit.index, spacesuit);
         return dict;
     }
 }
+#endregion
 
+#region RepairTool
+
+[Serializable]
+public class RepairTool
+{
+    public int index;
+    public string name;
+    public int rarely;
+    public string explain;
+    public int collect;
+    public int type;
+    public int maxCollect;
+    public int limitCollect;
+    public string resource;
+    
+}
+
+[Serializable]
+public class RepairToolData : ILoader<int, RepairTool>
+{
+    public List<RepairTool> repairtools = new List<RepairTool>();
+
+    public Dictionary<int, RepairTool> MakeDict()
+    {
+        Dictionary<int, RepairTool> dict = new Dictionary<int, RepairTool>();
+        foreach (RepairTool repairtool in repairtools)
+            dict.Add(repairtool.index, repairtool);
+        return dict;
+    }
+}
 #endregion
