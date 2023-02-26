@@ -7,7 +7,11 @@ using UnityEngine.UI;
 public class UI_BagItem : UI_Base
 {
     public Image _icon;
-    public TextMeshProUGUI _count;
+    public RepairTool _repairToolData;
+    public TextMeshProUGUI _countText;
+    
+    private int _count;
+    private UI_Tooltips _tooltips;
 
     enum GameObjects
     {
@@ -25,17 +29,26 @@ public class UI_BagItem : UI_Base
     {
         Bind<GameObject>(typeof(GameObjects));
 
-        //Get<GameObject>((int)GameObjects.Inventory_Item_Icon).BindEvent((PointerEventData) => { Debug.Log($"아이템 클릭! {_name}"); });
+        Get<GameObject>((int)GameObjects.Bag_Item_Icon).BindEvent((PointerEventData) => 
+        {
+            _tooltips = Managers.UI.ShowPopupUI<UI_Tooltips>("UI_Tooltips");
+            _tooltips.SetText(_repairToolData.name, _repairToolData.explain);
+            _tooltips.SetUseButton(true);
+        });
     }
 
-    public void SetBagItemIcon(string icon)
+    public void SetBagItemTable(RepairTool repairToolData)
     {
-        _icon.sprite = Resources.Load<Sprite>(icon) as Sprite;
+        _repairToolData = repairToolData;
+        _icon.sprite = Resources.Load<Sprite>(_repairToolData.resource) as Sprite;
+
     }
 
     public void SetItemCount(int count)
     {
-        _count.text = count.ToString();
+        _count = count;
+        //_countText.text = count.ToString();
     }
+
 
 }

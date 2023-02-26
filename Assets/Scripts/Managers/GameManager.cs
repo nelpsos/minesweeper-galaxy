@@ -1,13 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
+
+public struct AnimalInfo
+{
+    public int animalIndex;
+    public GameObject animalObject;
+}
+
+public struct BagInfo
+{
+    public int bagIndex;
+    public int count;
+}
 
 public class GameManager
 {
-
     [SerializeField]
     int _mineCount = 0;  //남은 지뢰 개수
     public int MineCount
@@ -39,13 +52,19 @@ public class GameManager
     [SerializeField]
     int _opendMine = 0; //
 
-
-
     [SerializeField]
     Round _roundData;
 
+    //Animal Index List
+    List<AnimalInfo> _animalList = new List<AnimalInfo>();    
+
+    //Bag Info
+    List<BagInfo> _bagsList = new List<BagInfo>();
+
     MapController _mapController;
     PlayerController _playerControllr = new PlayerController();
+
+    UI_Game _uiGame;
 
     public Define.GameMode _gameMode;
     public Define.GameMode GameMode
@@ -56,13 +75,9 @@ public class GameManager
 
     public Action<Define.GameMode> GameModeAction = null;
 
-
-    UI_Game _uiGame = null;
-
     public void Init()
     {
-        //Managers.Input.KeyAction -= OnKeyDown;
-        //Managers.Input.KeyAction += OnKeyDown;
+
     }
 
     public void StageClear()
@@ -73,7 +88,6 @@ public class GameManager
 
     private void InitGame()
     {
-  
         _roundData = Managers.Data.RoundDict[_round];
         _mineCount = _roundData.square_mine;
 
@@ -87,20 +101,8 @@ public class GameManager
         _mapController.Init(_roundData.square_mine, _roundData.square_row, _roundData.square_column);
 
         //Animal Settup
-        _uiGame = Managers.UI.GetUIScene<UI_Game>();
-        _uiGame.SetAnimalItemInfo(0, 0);
-        _uiGame.SetAnimalItemInfo(1, 1);
-        _uiGame.SetAnimalItemInfo(2, 2);
-
-        //Bag Settup
-        _uiGame.SetBagItemInfo(0, 0);
-
-        // Life Setup
-        _uiGame.SetLife(_life);
-
-        //Mine Setup
-        _uiGame.SetMine(_mineCount);
-
+        _uiGame = Managers.UI.ShowPopupUI<UI_Game>("UI_Game");
+        _uiGame.SetupGame();
     }
 
     public void ChangeGameMode(Define.GameMode gameMode) 
@@ -124,10 +126,44 @@ public class GameManager
                     InitGame();
 
                     Managers.UI.ShowPopupUI<UI_ReadyGame>("UI_ReadyGame");
+
+                    int index = _round - 1;
+                    //left
+                    {
+                        Vector3 position = new Vector3 { x = -Define.position[index], y = Managers.GameManager.GetYMax() + 1, z = 0.0f };
+                        Vector3 scale = new Vector3 { x = Define.scale[index], y = Define.scale[index], z = Define.scale[index] };
+
+                        _animalList[0].animalObject.transform.position = position;
+                        _animalList[0].animalObject.transform.localScale = scale;
+                    }
+                    //center
+                    {
+                        Vector3 position = new Vector3 { x = 0, y = Managers.GameManager.GetYMax() + 1, z = 0.0f };
+                        Vector3 scale = new Vector3 { x = Define.scale[index], y = Define.scale[index], z = Define.scale[index] };
+
+                        _animalList[1].animalObject.transform.position = position;
+                        _animalList[1].animalObject.transform.localScale = scale;
+                    }
+                    //Right
+                    {
+                        Vector3 position = new Vector3 { x = Define.position[index], y = Managers.GameManager.GetYMax() + 1, z = 0.0f };
+                        Vector3 scale = new Vector3 { x = Define.scale[index], y = Define.scale[index], z = Define.scale[index] };
+
+                        _animalList[2].animalObject.transform.position = position;
+                        _animalList[2].animalObject.transform.localScale = scale;
+                    }
+
+                    AddBag(0, 3);
+                    //아이템 셋팅
+                    for (int i = 0; i < _bagsList.Count; ++i)
+                    {
+                        _uiGame.SetBagItemInfo(i, _bagsList[i].bagIndex, _bagsList[i].count);
+                    }
                 }
                 break;
             case Define.GameMode.Play:
                 {
+
                     int x = UnityEngine.Random.Range(0, _roundData.square_row);
                     int y = UnityEngine.Random.Range(0, _roundData.square_column);
 
@@ -146,6 +182,14 @@ public class GameManager
                 {
                     _mapController.Clear();
 
+                    //Delete
+                    for (int i = 0; i < Define.MAX_ANIMAL; ++i)
+                    {
+                        Managers.Resource.Destroy(_animalList[i].animalObject);
+                    }
+                    _animalList.Clear();
+
+                    Managers.UI.ClosePopupUI(_uiGame);
                     UI_RoundClear roundClear = Managers.UI.ShowPopupUI<UI_RoundClear>("UI_RoundClear");
 
                     OnNextRound();
@@ -161,14 +205,10 @@ public class GameManager
 
     public void OnUpdate()
     {
-        //시간 체크
-        //_remainTime -= Time.deltaTime;
-        //_uiScene.SetTimeText(_remainTime);
-
-        //if(_remainTime < 0)
-        //{
-        //    ChangeGameMode(Define.GameMode.GameOver);
-        //}
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ChangeGameMode(Define.GameMode.Clear);
+        }
     }
 
     public void OnNextRound()
@@ -189,7 +229,7 @@ public class GameManager
 
         if (_life<=0)
         {
-            ChangeGameMode(Define.GameMode.GameOver);
+            //ChangeGameMode(Define.GameMode.GameOver);
         }
 
         if (IsGameClear())
@@ -236,9 +276,14 @@ public class GameManager
         _round = round;
     }
 
-    public Round GetRoundData()
+    public int CameraSize()
     {
-        return _roundData;
+        return _roundData.square_column + 2;
+    }
+
+    public float CaemraPosition()
+    {
+        return _roundData.square_column / 4;
     }
 
     public void AddRepairTool(RepairTool tool)
@@ -249,5 +294,36 @@ public class GameManager
     public void AddSpacesuit(Spacesuit spacesuit)
     {
         _playerControllr.AddSpacesuit(spacesuit);
+    }
+
+    
+    public void SetAnimalInfo(AnimalInfo  animalInfo)
+    {
+        _animalList.Add(animalInfo);
+    }
+
+    public AnimalInfo GetAnimalInfo(int index)
+    {
+        return _animalList[index];
+    }
+
+    public void AddBag(int index, int count)
+    {
+        BagInfo bagInfo = new BagInfo();
+
+        bagInfo.bagIndex = index;
+        bagInfo.count = count;
+
+        _bagsList.Add(bagInfo);
+    }
+    public int GetYMax()
+    {
+        Round round = Managers.Data.RoundDict[_round];
+        return round.square_row - round.square_row / 2;
+    }
+
+    public int GetLife()
+    {
+        return _life;
     }
 }

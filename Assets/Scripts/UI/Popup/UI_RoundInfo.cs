@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class UI_RoundInfo : UI_Popup
 {
@@ -24,6 +26,23 @@ public class UI_RoundInfo : UI_Popup
 
     public override void Init()
     {
+        int randomValue = Random.Range(0, Managers.Data.AnimalDict.Count);
+
+        //while (Managers.GameManager.HaveAnimalIndex(randomValue) == false)
+        //{
+        //    Managers.GameManager.SetAnimalIndex(randomValue);
+
+        //    randomValue = Random.Range(0, Managers.Data.AnimalDict.Count);
+
+        //    if (Managers.GameManager.GetAnimalSize() >= Define.MAX_ANIMAL)
+        //        break;
+        //}
+
+        //for(int i = 0; i < Define.MAX_ANIMAL; i++)
+        //{
+        //    Managers.GameManager._animalL(i);
+        //}
+
         Bind<GameObject>(typeof(GameObjects));
 
         Get<GameObject>((int)GameObjects.UI_RoundInfo).BindEvent((PointerEventData) =>
@@ -40,6 +59,7 @@ public class UI_RoundInfo : UI_Popup
         {
             GameObject item = Managers.UI.MakeSubItem<UI_RoundInfo_Item>(gridPanel.transform).gameObject;
             UI_RoundInfo_Item uiItem = item.GetOrAddComponent<UI_RoundInfo_Item>();
+             
             uiItem.SetRoundAnimalInfo(i);
         }
 
