@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static GameManager;
 
 public class UI_RoundInfo_Item : UI_Base
 {
-    public Image _icon;
+    public RectTransform _animalRect;
     public TextMeshProUGUI _name;
     public TextMeshProUGUI _explanation;
     public TextMeshProUGUI _garlicNumber;
@@ -37,12 +38,23 @@ public class UI_RoundInfo_Item : UI_Base
 
     }
 
-    public void SetRoundAnimalInfo(int animalIndex)
+    public void SetRoundAnimalInfo(int index)
     {
-        Animal animalData = Managers.Data.AnimalDict[animalIndex];
+        Animal animalData = Managers.Data.AnimalDict[index];
 
-        _icon.sprite = Resources.Load<Sprite>(animalData.resource) as Sprite;
+        GameObject go = Managers.Resource.Instantiate(animalData.resource);
+
+        go.transform.position = Define.GetAnimalPosition(index);
+        go.transform.rotation = Quaternion.Euler(new Vector3(15f, -90f, 15f));
+        go.transform.localScale = Define.GetAnimalScaleInfo();
+
         _name.text = animalData.name;
         _explanation.text = animalData.explain;
+
+        AnimalInfo info; 
+        info.animalIndex = index;
+        info.animalObject = go;
+
+        Managers.GameManager.SetAnimalInfo(info);
     }
 }

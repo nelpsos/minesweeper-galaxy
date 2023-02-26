@@ -17,6 +17,7 @@ public class UI_RoundClear_Item : UI_Base
     enum GameObjects
     {
         UI_RoundClear_item,
+        Image_Repair_Icon,
     }
 
     void Start()
@@ -28,10 +29,18 @@ public class UI_RoundClear_Item : UI_Base
     {
         Bind<GameObject>(typeof(GameObjects));
 
-        Get<GameObject>((int)GameObjects.UI_RoundClear_item).BindEvent((PointerEventData) =>
+        Get<GameObject>((int)GameObjects.Image_Repair_Icon).BindEvent((PointerEventData) =>
         {
             _tooltips = Managers.UI.ShowPopupUI<UI_Tooltips>("UI_Tooltips");
             _tooltips.SetText(_name.text, _explanation.text);
+        });
+
+        //
+        Get<GameObject>((int)GameObjects.UI_RoundClear_item).BindEvent((PointerEventData) =>
+        {
+            //
+            Managers.UI.CloseAllPopupUI();
+            Managers.GameManager.ChangeGameMode(Define.GameMode.Roadmap);
         });
 
     }

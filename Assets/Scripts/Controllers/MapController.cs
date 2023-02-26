@@ -9,7 +9,8 @@ public class MapController : MonoBehaviour
     private int _row;
     private int _col;
 
-
+    private bool _mouseDown;
+    private Vector3 _mousePosition;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,38 @@ public class MapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            _mouseDown = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            _mouseDown = false;
+        }
+
+        if(_mouseDown)
+        {
+            Vector3 mouseDelta = new( Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0f);
+
+            if(mouseDelta.magnitude > 0.1f)
+            {
+                gameObject.transform.position += (mouseDelta *0.1f);
+            }
+
+            _mousePosition = Input.mousePosition;
+        }
+
+        if(Input.touchCount > 1)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if(touch.phase == TouchPhase.Moved)
+            {
+                Vector2 mouseDelta = touch.deltaPosition;
+                Vector3 mosuePosition = new Vector3(mouseDelta.x, mouseDelta.y, 0.0f);
+                gameObject.transform.position += (mosuePosition * 0.1f);
+            }
+        }
     }
 
     public void Init(int maxMine, int row, int col)
@@ -106,12 +138,12 @@ public class MapController : MonoBehaviour
         {
             case Define.GameMode.Ready:
                 {
-                    gameObject.SetActive(false);
+                 //   gameObject.SetActive(false);
                 }
                 break;
             case Define.GameMode.Play:
                 {
-                    gameObject.SetActive(true);
+                //    gameObject.SetActive(true);
                 }
                 break;
             case Define.GameMode.Pause:

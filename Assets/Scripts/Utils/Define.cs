@@ -75,4 +75,20 @@ public class Define
     public const int MAX_ANIMAL = 3;
     public const int MAX_BAG = 4;
 
+    public static float[] position = { 2f, 4.5f, 9.0f };
+    public static float[] scale = { 0.5f, 1.0f, 1.5f };
+    
+    static public Vector3 GetAnimalScaleInfo()
+    {
+        return new Vector3(0.3f, 0.3f, 0.3f);
+    }
+
+    static public Vector3 GetAnimalPosition(int index)
+    {
+        Vector3[] INFO_POSITION = { new Vector3(-1.5f, 2f, 0), new Vector3(0f, 2f, 0), new Vector3(1.5f, 2f, 0) };
+
+        return INFO_POSITION[index];
+    }
+
+
 }

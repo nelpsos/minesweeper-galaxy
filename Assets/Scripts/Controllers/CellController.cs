@@ -42,15 +42,16 @@ public class CellController : MonoBehaviour
         _x = x;
         _y = y;
         _map = map;
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _open = Resources.Load<Sprite>("Texture/Game/cell_normal") as Sprite; ;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-
-        _open = Resources.Load<Sprite>("Texture/Game/cell_normal") as Sprite; ;
-}
+    }
 
     public void OnMouseLClick()
     {

@@ -27,13 +27,6 @@ public class UI_RoundClear : UI_Popup
     {
         Bind<GameObject>(typeof(GameObjects));
 
-        //
-        Get<GameObject>((int)GameObjects.UI_RoundClear).BindEvent((PointerEventData) =>
-        {
-            Managers.UI.ClosePopupUI(this);
-            Managers.GameManager.ChangeGameMode(Define.GameMode.Roadmap);
-        });
-
         //Repair Item
         {
             GameObject gridPanel = Get<GameObject>((int)GameObjects.Grid_RepairItem_Info);

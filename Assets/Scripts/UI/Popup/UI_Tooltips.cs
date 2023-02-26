@@ -16,6 +16,7 @@ public class UI_Tooltips : UI_Popup
 
     public TextMeshProUGUI _title;
     public TextMeshProUGUI _content;
+    public Image _buttonImage;
 
     private void Start()
     {
@@ -41,5 +42,8 @@ public class UI_Tooltips : UI_Popup
         _title.text = title;
         _content.text = content;
     }
-
+    public void SetUseButton(bool bActive)
+    {
+        _buttonImage.gameObject.SetActive(bActive);
+    }
 }

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_Game : UI_Scene
+public class UI_Game : UI_Popup
 {
+
     enum GameObjects
     {
-        Grid_Animal,
         Grid_Bag,
         Grid_Life,
     }
@@ -30,20 +30,17 @@ public class UI_Game : UI_Scene
     public override void Init()
     {
         base.Init();
+    }
 
+    public void SetupGame()
+    {
         Bind<GameObject>(typeof(GameObjects));
 
         InitBag();
 
-        InitAnimal();
-
         InitLife();
 
         InitMine();
-
-        //_canvas = GetComponent<Canvas>();
-        //_canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        //_canvas.worldCamera = Camera.main;
     }
 
     #region Bag
@@ -60,42 +57,18 @@ public class UI_Game : UI_Scene
         {
             GameObject item = Managers.UI.MakeSubItem<UI_BagItem>(gridPanel.transform).gameObject;
             m_bagItemList[i] = item.GetOrAddComponent<UI_BagItem>();
+
+            item.gameObject.SetActive(false);
         }
     }
 
-    public void SetBagItemInfo(int index, int tableIndex)
+    public void SetBagItemInfo(int index, int tableIndex, int count)
     {
-        RepairTool repairToolData = Managers.Data.RepairItemDict[tableIndex];
-
-       m_bagItemList[index].SetBagItemIcon(repairToolData.resource);
+        m_bagItemList[index].gameObject.SetActive(true);
+        m_bagItemList[index].SetBagItemTable(Managers.Data.RepairItemDict[tableIndex]);
+        m_bagItemList[index].SetItemCount(count);
     }
 
-    #endregion
-
-
-    #region Aniaml
-
-    UI_AnimalItem[] m_animalItemList = new UI_AnimalItem[Define.MAX_ANIMAL];
-
-    private void InitAnimal()
-    {
-        GameObject gridPanel = Get<GameObject>((int)GameObjects.Grid_Animal);
-        foreach (Transform child in gridPanel.transform)
-            Managers.Resource.Destroy(child.gameObject);
-
-        for (int i = 0; i < Define.MAX_ANIMAL; i++)
-        {
-            GameObject item = Managers.UI.MakeSubItem<UI_AnimalItem>(gridPanel.transform).gameObject;
-            m_animalItemList[i] = item.GetOrAddComponent<UI_AnimalItem>();
-        }
-    }
-
-    public void SetAnimalItemInfo(int index, int tableIndex)
-    {
-        Animal animalData = Managers.Data.AnimalDict[tableIndex];
-
-        m_animalItemList[index].SetAniamlIcon(animalData.resource);
-    }
     #endregion
 
     #region Life
@@ -112,6 +85,8 @@ public class UI_Game : UI_Scene
             GameObject item = Managers.UI.MakeSubItem<UI_LifeItem>(gridPanel.transform).gameObject;
             m_lifeItemList[i] = item.GetOrAddComponent<UI_LifeItem>();
         }
+
+        SetLife(Managers.GameManager.GetLife());
     }
 
     public void SetLife(int life)

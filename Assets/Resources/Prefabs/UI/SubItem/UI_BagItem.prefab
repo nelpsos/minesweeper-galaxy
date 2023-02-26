@@ -245,7 +245,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 922470610149526409}
-  _count: {fileID: 0}
+  _repairToolData:
+    index: 0
+    name: 
+    rarely: 0
+    explain: 
+    collect: 0
+    type: 0
+    maxCollect: 0
+    limitCollect: 0
+    resource: 
+  _countText: {fileID: 5452154664110630700}
 --- !u!1 &7710743169244827500
 GameObject:
   m_ObjectHideFlags: 0
